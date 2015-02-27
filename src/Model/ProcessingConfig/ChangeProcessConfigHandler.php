@@ -9,10 +9,9 @@
  * Date: 30.12.14 - 18:13
  */
 
-use Prooph\Link\Application\Model\ProcessingConfig;
-use Prooph\ServiceBus\EventBus;
+namespace Prooph\Link\Application\Model\ProcessingConfig;
+
 use Prooph\Link\Application\Command\ChangeProcessConfig;
-use Prooph\Link\Application\Model\ConfigWriter;
 use Prooph\Link\Application\Model\ProcessingConfig;
 
 /**

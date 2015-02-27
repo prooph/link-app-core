@@ -9,7 +9,7 @@
  * Date: 07.12.14 - 21:01
  */
 
-use Prooph\Link\Application\Controller;
+namespace Prooph\Link\Application\Controller;
 
 use Prooph\Link\Application\Service\AbstractActionController;
 use Prooph\Link\Application\SharedKernel\SqliteDbFile;
@@ -51,7 +51,7 @@ final class ProcessingSetUpController extends AbstractActionController
             throw $ex;
         }
 
-        return $this->redirect()->toRoute('system_config');
+        return $this->redirect()->toRoute('prooph.link/system_config');
     }
 }
  

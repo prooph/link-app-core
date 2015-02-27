@@ -9,11 +9,9 @@
  * Date: 02.01.15 - 12:49
  */
 
-use Prooph\Link\Application\Model\ProcessingConfig;
+namespace Prooph\Link\Application\Model\ProcessingConfig;
 
-use Prooph\ServiceBus\EventBus;
 use Prooph\Link\Application\Command\InitializeEventStore;
-use Prooph\Link\Application\Model\ConfigWriter;
 use Prooph\Link\Application\Model\EventStoreConfig;
 
 /**

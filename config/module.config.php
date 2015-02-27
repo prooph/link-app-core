@@ -109,6 +109,10 @@ return array(
             'Prooph\Link\Application\Command\UndoSystemSetUp'                   => 'Prooph\Link\Application\Model\ProcessingConfig\UndoSystemSetUpHandler',
             'Prooph\Link\Application\Command\AddConnectorToConfig'              => 'Prooph\Link\Application\Model\ProcessingConfig\AddConnectorToConfigHandler',
             'Prooph\Link\Application\Command\ChangeConnectorConfig'             => 'Prooph\Link\Application\Model\ProcessingConfig\ChangeConnectorConfigHandler',
+        ],
+        'command_bus' => [
+            //We force the rule -one handler per command- with a custom invoke strategy (Application\ProophPlugin\SingleHandleMethodInvokeStrategy)
+            'prooph.link.app.psb.single_handle_method_invoke_strategy',
         ]
     ],
     'view_manager' => [
@@ -118,6 +122,9 @@ return array(
             'prooph/link/system-config/riot-tag/system-configurator' => __DIR__ . '/../view/system-config/riot-tag/system-configurator.phtml',
             'prooph/link/system-config/riot-tag/system-node-name' => __DIR__ . '/../view/system-config/riot-tag/system-node-name.phtml',
         ],
+        'strategies' => array(
+            'ViewJsonStrategy',
+        ),
     ],
     'view_helpers' => [
         'invokables'=> [
@@ -142,15 +149,6 @@ return array(
         ],
     ],
     'zf-content-negotiation' => [
-        //Application wide selectors for the content negotiation module
-        'selectors'   => [
-            'Json' => [
-                'ZF\ContentNegotiation\JsonModel' => [
-                    'application/json',
-                    'application/*+json',
-                ],
-            ],
-        ],
         'controllers' => [
             'Prooph\Link\Application\Controller\Configuration' => 'Json',
         ],

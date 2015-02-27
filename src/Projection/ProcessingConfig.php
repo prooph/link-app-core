@@ -9,7 +9,7 @@
  * Date: 07.12.14 - 00:05
  */
 
-use Prooph\Link\Application\Projection;
+namespace Prooph\Link\Application\Projection;
 
 use Prooph\Link\Application\SharedKernel\ConfigLocation;
 use Codeliner\ArrayReader\ArrayReader;
@@ -67,7 +67,7 @@ final class ProcessingConfig
      */
     public function isWritable()
     {
-        return is_writable($this->configLocation->toString() . DIRECTORY_SEPARATOR . \SystemConfig\Model\ProcessingConfig::configFileName());
+        return is_writable($this->configLocation->toString() . DIRECTORY_SEPARATOR . \Prooph\Link\Application\Model\ProcessingConfig::configFileName());
     }
 
     /**

@@ -47,7 +47,7 @@
                     toggleBtn($btn);
 
                     if (nodeName != oldNodeName) {
-                        $.postJSON('<?php echo $this->url('system_config/change_node_name') ?>', {node_name : nodeName})
+                        $.postJSON('<?php echo $this->url('prooph.link/system_config/change_node_name') ?>', {node_name : nodeName})
                             .done(function (data) {
                                 $.notify('Node Name <?php echo $this->translate('successfully changed') ?>', 'success')
                             })

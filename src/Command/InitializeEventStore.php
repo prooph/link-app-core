@@ -9,9 +9,8 @@
  * Date: 01.01.15 - 23:37
  */
 
-use Prooph\Link\Application\Command;
+namespace Prooph\Link\Application\Command;
 
-use Prooph\Link\Application\Command\SystemCommand;
 use Prooph\Link\Application\SharedKernel\ConfigLocation;
 use Prooph\Link\Application\SharedKernel\SqliteDbFile;
 
@@ -28,7 +27,7 @@ final class InitializeEventStore extends SystemCommand
     /**
      * @param SqliteDbFile $sqliteDbFile
      * @param ConfigLocation $eventStoreConfigLocation
-     * @return \SystemConfig\Command\InitializeEventStore
+     * @return InitializeEventStore
      */
     public static function setUpWithSqliteDbAdapter(SqliteDbFile $sqliteDbFile, ConfigLocation $eventStoreConfigLocation)
     {

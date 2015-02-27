@@ -9,11 +9,7 @@
  * Date: 02.01.15 - 16:56
  */
 
-use Prooph\Link\Application\Command;
-
-use Prooph\Link\Application\Command\SystemCommand;
-use Prooph\Link\Application\SharedKernel\ConfigLocation;
-use Prooph\Link\Application\SharedKernel\SqliteDbFile;
+namespace Prooph\Link\Application\Command;
 
 /**
  * Class UndoSystemSetUp

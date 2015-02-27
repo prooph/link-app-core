@@ -9,7 +9,7 @@
  * Date: 30.12.14 - 16:45
  */
 
-use Prooph\Link\Application\Service;
+namespace Prooph\Link\Application\Service;
 
 use Prooph\Link\Application\Projection\ProcessingConfig;
 

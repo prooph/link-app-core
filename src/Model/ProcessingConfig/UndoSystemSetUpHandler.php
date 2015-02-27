@@ -9,8 +9,8 @@
  * Date: 02.01.15 - 17:00
  */
 
-use Prooph\Link\Application\Model\ProcessingConfig;
-use Prooph\ServiceBus\EventBus;
+namespace Prooph\Link\Application\Model\ProcessingConfig;
+
 use Prooph\Link\Application\Command\UndoSystemSetUp;
 use Prooph\Link\Application\Model\EventStoreConfig;
 use Prooph\Link\Application\Model\ProcessingConfig;

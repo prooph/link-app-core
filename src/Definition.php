@@ -9,7 +9,7 @@
  * Date: 07.12.14 - 22:48
  */
 
-use Prooph\Link\Application;
+namespace Prooph\Link\Application;
 
 /**
  * Class Definition

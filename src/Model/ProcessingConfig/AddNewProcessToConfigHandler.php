@@ -8,11 +8,9 @@
  * 
  * Date: 12/14/14 - 10:05 PM
  */
-use Prooph\Link\Application\Model\ProcessingConfig;
+namespace Prooph\Link\Application\Model\ProcessingConfig;
 
-use Prooph\ServiceBus\EventBus;
 use Prooph\Link\Application\Command\AddNewProcessToConfig;
-use Prooph\Link\Application\Model\ConfigWriter;
 use Prooph\Link\Application\Model\ProcessingConfig;
 
 /**

@@ -9,11 +9,8 @@
  * Date: 30.12.14 - 16:46
  */
 
-use Prooph\Link\Application\Service;
+namespace Prooph\Link\Application\Service;
 
-use Prooph\Link\Application\SharedKernel\ConfigLocation;
-use Prooph\Link\Application\Definition;
-use Prooph\Link\Application\Projection\ProcessingConfig;
 use Zend\Mvc\Controller\ControllerManager;
 use Zend\ServiceManager\InitializerInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -41,7 +38,7 @@ final class SystemConfigProvider implements InitializerInterface
             if ($serviceLocator instanceof ControllerManager) {
                 $serviceLocator = $serviceLocator->getServiceLocator();
             }
-            $instance->setSystemConfig($serviceLocator->get('system_config'));
+            $instance->setSystemConfig($serviceLocator->get('prooph.link.system_config'));
         }
     }
 }

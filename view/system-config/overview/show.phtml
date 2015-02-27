@@ -24,7 +24,7 @@
             <div class="alert alert-warning">
                 <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>&nbsp;<?php echo sprintf(
                     $this->translate('No configuration found for prooph processing. Would you like to %screate one%s?'),
-                    '<a href="'.$this->url('system_config/processing_set_up').'">', '</a>') ?>
+                    '<a href="'.$this->url('prooph.link/system_config/processing_set_up').'">', '</a>') ?>
             </div>
         </div>
     <?php else : ?>
@@ -53,6 +53,6 @@ $(function () {
 });
 JS;
     $this->inlineScript()->captureEnd();
-    $this->inlineScript()->prependFile($this->basePath() . '/js/system-config/app.js');
+    $this->inlineScript()->prependFile($this->basePath() . '/js/prooph/link/system-config/app.js');
 }
 ?>

@@ -8,11 +8,9 @@
  * 
  * Date: 12/8/14 - 10:53 PM
  */
-use Prooph\Link\Application\Model\ProcessingConfig;
+namespace Prooph\Link\Application\Model\ProcessingConfig;
 
-use Prooph\ServiceBus\EventBus;
 use Prooph\Link\Application\Command\ChangeNodeName;
-use Prooph\Link\Application\Model\ConfigWriter;
 use Prooph\Link\Application\Model\ProcessingConfig;
 
 /**

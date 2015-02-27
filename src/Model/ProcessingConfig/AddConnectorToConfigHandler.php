@@ -9,7 +9,7 @@
  * Date: 07.01.15 - 21:42
  */
 
-use Prooph\Link\Application\Model\ProcessingConfig;
+namespace Prooph\Link\Application\Model\ProcessingConfig;
 
 use Prooph\Link\Application\Command\AddConnectorToConfig;
 use Prooph\Link\Application\Model\ProcessingConfig;

@@ -8,9 +8,8 @@
  * 
  * Date: 12/8/14 - 7:23 PM
  */
-use Prooph\Link\Application\Command;
+namespace Prooph\Link\Application\Command;
 
-use Prooph\Link\Application\Command\SystemCommand;
 use Prooph\Link\Application\SharedKernel\ConfigLocation;
 use Prooph\Processing\Processor\NodeName;
 

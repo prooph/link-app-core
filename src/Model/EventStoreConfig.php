@@ -9,7 +9,7 @@
  * Date: 01.01.15 - 23:16
  */
 
-use Prooph\Link\Application\Model;
+namespace Prooph\Link\Application\Model;
 
 use Prooph\Link\Application\Event\RecordsSystemChangedEvents;
 use Prooph\Link\Application\Event\SystemChangedEventRecorder;
@@ -52,7 +52,7 @@ final class EventStoreConfig implements SystemChangedEventRecorder
      * @param SqliteDbFile $sqliteDbFile
      * @param ConfigLocation $configLocation
      * @param ConfigWriter $configWriter
-     * @return \SystemConfig\Model\EventStoreConfig
+     * @return EventStoreConfig
      */
     public static function initializeWithSqliteDb(SqliteDbFile $sqliteDbFile, ConfigLocation $configLocation, ConfigWriter $configWriter)
     {

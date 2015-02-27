@@ -53,11 +53,7 @@ final class ApplicationDataTypeLocation extends AbstractLocation
             throw new \InvalidArgumentException("Provided data type FQCN contains no class name: " . $dataTypeFQCN);
         }
 
-        $currentPath = $this->toString() . DIRECTORY_SEPARATOR . 'ProophLinkApplication';
-
-        if (! is_dir($currentPath )) {
-            mkdir($currentPath);
-        }
+        $currentPath = $this->toString();
 
         if (! empty($nsDirs)) {
             foreach ($nsDirs as $nsDir) {

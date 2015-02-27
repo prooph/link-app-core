@@ -9,11 +9,10 @@
  * Date: 07.12.14 - 20:21
  */
 
-use Prooph\Link\Application\Controller;
+namespace Prooph\Link\Application\Controller;
 
+use Prooph\Link\Application\Model\ProcessingConfig;
 use Prooph\Link\Application\Service\AbstractQueryController;
-use Prooph\Link\Application\Projection\ProcessingConfig;
-use Prooph\Link\Application\Service\NeedsSystemConfig;
 use Zend\View\Model\ViewModel;
 
 /**
@@ -36,17 +35,21 @@ class OverviewController extends AbstractQueryController
         $params['config_dir_is_writable'] = is_writable($this->systemConfig->getConfigLocation()->toString());
 
         if ($this->systemConfig->isConfigured()) {
-            $params['config_is_writable'] = is_writable($this->systemConfig->getConfigLocation()->toString() . DIRECTORY_SEPARATOR . \SystemConfig\Model\ProcessingConfig::configFileName());
+            $params['config_is_writable'] = is_writable($this->systemConfig->getConfigLocation()->toString() . DIRECTORY_SEPARATOR . ProcessingConfig::configFileName());
         } else {
             $params['config_is_writable'] = true;
         }
 
         $params['config_dir'] = $this->systemConfig->getConfigLocation()->toString();
-        $params['config_file_name'] = \SystemConfig\Model\ProcessingConfig::configFileName();
+        $params['config_file_name'] = ProcessingConfig::configFileName();
 
         $this->layout()->setVariable('includeRiotJs', true);
 
-        return new ViewModel($params);
+        $model = new ViewModel($params);
+
+        $model->setTemplate('prooph/link/system-config/overview/show');
+
+        return $model;
     }
 }
  

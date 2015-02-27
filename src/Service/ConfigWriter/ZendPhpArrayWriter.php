@@ -9,7 +9,7 @@
  * Date: 07.12.14 - 22:16
  */
 
-use Prooph\Link\Application\Service\ConfigWriter;
+namespace Prooph\Link\Application\Service\ConfigWriter;
 
 use Prooph\Link\Application\Model\ConfigWriter;
 use Zend\Config\Writer\PhpArray;

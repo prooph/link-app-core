@@ -9,10 +9,7 @@
  * Date: 02.01.15 - 17:20
  */
 
-use Prooph\Link\Application\Event;
-
-use Prooph\Link\Application\Event\SystemChanged;
-use Prooph\Link\Application\SharedKernel\ConfigLocation;
+namespace Prooph\Link\Application\Event;
 
 /**
  * Class EventStoreSetUpWasUndone

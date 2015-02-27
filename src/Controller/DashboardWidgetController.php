@@ -9,12 +9,11 @@
  * Date: 06.12.14 - 22:32
  */
 
-use Prooph\Link\Application\Controller;
+namespace Prooph\Link\Application\Controller;
 
-use Dashboard\Controller\AbstractWidgetController;
-use Dashboard\View\DashboardWidget;
-use Prooph\Link\Application\Projection\ProcessingConfig;
-use Prooph\Link\Application\Service\NeedsSystemConfig;
+use Prooph\Link\Application\Model\ProcessingConfig;
+use Prooph\Link\Dashboard\Controller\AbstractWidgetController;
+use Prooph\Link\Dashboard\View\DashboardWidget;
 
 /**
  * Class DashboardWidgetController
@@ -42,11 +41,9 @@ class DashboardWidgetController extends AbstractWidgetController
         }
 
         $params['config_dir'] = $this->systemConfig->getConfigLocation()->toString();
-        $params['config_file_name'] = \SystemConfig\Model\ProcessingConfig::configFileName();
+        $params['config_file_name'] = ProcessingConfig::configFileName();
 
-
-
-        return DashboardWidget::initialize('system-config/dashboard/widget', 'System Configuration', 4, $params);
+        return DashboardWidget::initialize('prooph/link/system-config/dashboard/widget', 'System Configuration', 4, $params);
     }
 }
  

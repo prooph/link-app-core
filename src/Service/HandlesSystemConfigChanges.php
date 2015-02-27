@@ -9,7 +9,7 @@
  * Date: 07.01.15 - 21:51
  */
 
-use Prooph\Link\Application\Service;
+namespace Prooph\Link\Application\Service;
 
 use Prooph\ServiceBus\EventBus;
 use Prooph\Link\Application\Model\ConfigWriter;

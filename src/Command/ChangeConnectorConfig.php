@@ -9,8 +9,8 @@
  * Date: 08.01.15 - 01:02
  */
 
-use Prooph\Link\Application\Command;
-use Prooph\Link\Application\Command\SystemCommand;
+namespace Prooph\Link\Application\Command;
+
 use Prooph\Link\Application\SharedKernel\ConfigLocation;
 
 /**

@@ -9,9 +9,7 @@
  * Date: 30.12.14 - 18:33
  */
 
-use Prooph\Link\Application\Event;
-
-use Prooph\Link\Application\Event\SystemChanged;
+namespace Prooph\Link\Application\Event;
 
 /**
  * Class ProcessConfigWasChanged

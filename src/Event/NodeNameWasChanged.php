@@ -9,9 +9,8 @@
  * Date: 09.12.14 - 23:02
  */
 
-use Prooph\Link\Application\Event;
+namespace Prooph\Link\Application\Event;
 
-use Prooph\Link\Application\Event\SystemChanged;
 use Prooph\Processing\Processor\NodeName;
 
 /**

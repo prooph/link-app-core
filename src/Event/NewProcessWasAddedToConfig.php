@@ -8,9 +8,7 @@
  * 
  * Date: 12/14/14 - 11:23 PM
  */
-use Prooph\Link\Application\Event;
-
-use Prooph\Link\Application\Event\SystemChanged;
+namespace Prooph\Link\Application\Event;
 
 /**
  * Class NewProcessWasAddedToConfig

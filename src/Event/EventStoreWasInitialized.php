@@ -9,9 +9,8 @@
  * Date: 02.01.15 - 16:35
  */
 
-use Prooph\Link\Application\Event;
+namespace Prooph\Link\Application\Event;
 
-use Prooph\Link\Application\Event\SystemChanged;
 use Prooph\Link\Application\SharedKernel\ConfigLocation;
 use Prooph\Link\Application\SharedKernel\SqliteDbFile;
 

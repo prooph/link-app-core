@@ -9,7 +9,7 @@
  * Date: 07.12.14 - 23:27
  */
 
-use Prooph\Link\Application\Projection;
+namespace Prooph\Link\Application\Projection;
 
 /**
  * Class EventStoreConfig

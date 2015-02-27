@@ -9,7 +9,7 @@
  * Date: 07.12.14 - 21:59
  */
 
-use Prooph\Link\Application\Model;
+namespace Prooph\Link\Application\Model;
 
 /**
  * Interface ConfigWriter

@@ -9,10 +9,8 @@
  * Date: 08.01.15 - 23:50
  */
 
-use Prooph\Link\Application\Service;
+namespace Prooph\Link\Application\Service;
 
-use Prooph\Link\Application\SharedKernel\ConfigLocation;
-use Prooph\Link\Application\Definition;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -33,7 +31,7 @@ final class SystemConfigFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return \SystemConfig\Model\ProcessingConfig::asProjectionFrom($serviceLocator->get('application.config_location'));
+        return \Prooph\Link\Application\Model\ProcessingConfig::asProjectionFrom($serviceLocator->get('prooph.link.app.config_location'));
     }
 }
  

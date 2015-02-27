@@ -9,9 +9,8 @@
  * Date: 07.01.15 - 21:54
  */
 
-use Prooph\Link\Application\Service;
+namespace Prooph\Link\Application\Service;
 
-use Prooph\Link\Application\Service\ConfigWriter\ZendPhpArrayWriter;
 use Zend\ServiceManager\InitializerInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -34,7 +33,7 @@ final class SystemConfigChangesHandlerProvider implements InitializerInterface
     {
         if ($instance instanceof HandlesSystemConfigChanges) {
             $instance->setEventBus($serviceLocator->get('prooph.psb.event_bus'));
-            $instance->setConfigWriter($serviceLocator->get('system_config.config_writer'));
+            $instance->setConfigWriter($serviceLocator->get('prooph.link.system_config.config_writer'));
         }
     }
 }

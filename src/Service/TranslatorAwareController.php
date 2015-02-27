@@ -9,9 +9,8 @@
  * Date: 12/8/14 - 10:06 PM
  */
 namespace Prooph\Link\Application\Service;
+
 use Zend\Mvc\I18n\Translator;
-
-
 /**
  * Interface TranslatorAwareController
  *

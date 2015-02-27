@@ -8,9 +8,8 @@
  * 
  * Date: 12/14/14 - 9:55 PM
  */
-use Prooph\Link\Application\Command;
+namespace Prooph\Link\Application\Command;
 
-use Prooph\Link\Application\Command\SystemCommand;
 use Prooph\Link\Application\SharedKernel\ConfigLocation;
 
 /**
@@ -27,7 +26,7 @@ final class AddNewProcessToConfig extends SystemCommand
      * @param string $startMessage
      * @param array $tasks
      * @param ConfigLocation $configLocation
-     * @return \SystemConfig\Command\AddNewProcessToConfig
+     * @return AddNewProcessToConfig
      */
     public static function fromDefinition($name, $processType, $startMessage, array $tasks, ConfigLocation $configLocation)
     {

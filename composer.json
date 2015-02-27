@@ -27,7 +27,6 @@
         "prooph/prooph-event-store-module": "~2.0",
         "prooph/event-store-doctrine-adapter": "~0.3",
         "doctrine/doctrine-orm-module": "~0.8.0",
-        "doctrine/migrations": "v1.0-ALPHA1",
         "prooph/event-sourcing": "~1.0",
         "rwoverdijk/assetmanager": "~1.4",
         "phly/mustache" : "~1.2",

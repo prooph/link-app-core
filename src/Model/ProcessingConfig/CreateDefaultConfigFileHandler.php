@@ -9,11 +9,9 @@
  * Date: 07.12.14 - 21:33
  */
 
-use Prooph\Link\Application\Model\ProcessingConfig;
+namespace Prooph\Link\Application\Model\ProcessingConfig;
 
-use Prooph\ServiceBus\EventBus;
 use Prooph\Link\Application\Command\CreateDefaultProcessingConfigFile;
-use Prooph\Link\Application\Model\ConfigWriter;
 use Prooph\Link\Application\Model\ProcessingConfig;
 
 /**

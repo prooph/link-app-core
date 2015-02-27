@@ -9,7 +9,7 @@
  * Date: 07.12.14 - 21:58
  */
 
-use Prooph\Link\Application\Model;
+namespace Prooph\Link\Application\Model;
 
 use Prooph\Link\Application\Event\RecordsSystemChangedEvents;
 use Prooph\Link\Application\Event\SystemChangedEventRecorder;
@@ -59,7 +59,7 @@ final class ProcessingConfig implements SystemChangedEventRecorder
     private static $configFileName = 'processing.config.local.php';
 
     /**
-     * @var \SystemConfig\Projection\ProcessingConfig
+     * @var \Prooph\Link\Application\Projection\ProcessingConfig
      */
     private $projection;
 
@@ -102,17 +102,17 @@ final class ProcessingConfig implements SystemChangedEventRecorder
 
     /**
      * @param ConfigLocation $configLocation
-     * @return \SystemConfig\Projection\ProcessingConfig
+     * @return \Prooph\Link\Application\Projection\ProcessingConfig
      */
     public static function asProjectionFrom(ConfigLocation $configLocation)
     {
         if (file_exists($configLocation->toString() . DIRECTORY_SEPARATOR . self::$configFileName)) {
             $instance = self::initializeFromConfigLocation($configLocation);
-            return new \SystemConfig\Projection\ProcessingConfig($instance->toArray(), $configLocation, true);
+            return new \Prooph\Link\Application\Projection\ProcessingConfig($instance->toArray(), $configLocation, true);
         } else {
             $env = Environment::setUp();
 
-            return new \SystemConfig\Projection\ProcessingConfig(['processing' => $env->getConfig()->toArray()], $configLocation);
+            return new \Prooph\Link\Application\Projection\ProcessingConfig(['processing' => $env->getConfig()->toArray()], $configLocation);
         }
     }
 
@@ -311,7 +311,7 @@ final class ProcessingConfig implements SystemChangedEventRecorder
 
         $this->assertChannelConfig($config['processing']['channels']['local'], 'local');
 
-        $projection = new \SystemConfig\Projection\ProcessingConfig($config, $this->configLocation, true);
+        $projection = new \Prooph\Link\Application\Projection\ProcessingConfig($config, $this->configLocation, true);
 
         foreach ($config['processing']['processes'] as $startMessage => $processConfig) {
             $this->assertMessageName($startMessage, $projection->getAllAvailableProcessingTypes());
@@ -328,12 +328,12 @@ final class ProcessingConfig implements SystemChangedEventRecorder
     }
 
     /**
-     * @return \SystemConfig\Projection\ProcessingConfig
+     * @return \Prooph\Link\Application\Projection\ProcessingConfig
      */
     private function projection()
     {
         if (is_null($this->projection)) {
-            $this->projection = new \SystemConfig\Projection\ProcessingConfig($this->toArray(), $this->configLocation,  true);
+            $this->projection = new \Prooph\Link\Application\Projection\ProcessingConfig($this->toArray(), $this->configLocation,  true);
         }
 
         return $this->projection;
@@ -426,11 +426,11 @@ final class ProcessingConfig implements SystemChangedEventRecorder
     /**
      * @param string $connectorId
      * @param array $connectorConfig
-     * @param \SystemConfig\Projection\ProcessingConfig $config
+     * @param \Prooph\Link\Application\Projection\ProcessingConfig $config
      * @param bool $isNewConnector
      * @throws \InvalidArgumentException
      */
-    private function assertConnectorConfig($connectorId, array $connectorConfig, \SystemConfig\Projection\ProcessingConfig $config, $isNewConnector = false)
+    private function assertConnectorConfig($connectorId, array $connectorConfig, \Prooph\Link\Application\Projection\ProcessingConfig $config, $isNewConnector = false)
     {
         if (! is_string($connectorId) || empty($connectorId)) throw new \InvalidArgumentException("Connector id must a non empty string");
 

@@ -9,9 +9,7 @@
  * Date: 07.01.15 - 22:50
  */
 
-use Prooph\Link\Application\Event;
-
-use Prooph\Link\Application\Event\SystemChanged;
+namespace Prooph\Link\Application\Event;
 
 /**
  * Class ConnectorWasAddedToConfig

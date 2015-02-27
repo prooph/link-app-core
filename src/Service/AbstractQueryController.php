@@ -13,7 +13,6 @@ namespace Prooph\Link\Application\Service;
 use Prooph\Processing\Type\Description\Description;
 use Prooph\Processing\Type\PrototypeProperty;
 use Prooph\Link\Application\Projection\ProcessingConfig;
-use Prooph\Link\Application\Service\NeedsSystemConfig;
 
 /**
  * Class AbstractQueryController

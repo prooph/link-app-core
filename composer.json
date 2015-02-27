@@ -1,5 +1,5 @@
 {
-    "name": "prooph/prooph-link-app-core-module",
+    "name": "prooph/link-app-core",
     "description": "Prooph LINK module that provides default functionality for a prooph LINK application",
     "type": "library",
     "license": "BSD-3-Clause",

@@ -35,7 +35,7 @@ class DashboardWidgetController extends AbstractWidgetController
         $params['config_dir_is_writable'] = is_writable($this->systemConfig->getConfigLocation()->toString());
 
         if ($this->systemConfig->isConfigured()) {
-            $params['config_is_writable'] = is_writable($this->systemConfig->getConfigLocation()->toString() . DIRECTORY_SEPARATOR . \SystemConfig\Model\ProcessingConfig::configFileName());
+            $params['config_is_writable'] = is_writable($this->systemConfig->getConfigLocation()->toString() . DIRECTORY_SEPARATOR . ProcessingConfig::configFileName());
         } else {
             $params['config_is_writable'] = true;
         }

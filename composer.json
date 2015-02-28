@@ -3,7 +3,7 @@
     "description": "Prooph LINK module that provides default functionality for a prooph LINK application",
     "type": "library",
     "license": "BSD-3-Clause",
-    "homepage": "https://github.com/prooph/ProophLinkAppCoreModule",
+    "homepage": "https://github.com/prooph/link-app-core",
     "authors": [
         {
             "name": "Alexander Miertsch",

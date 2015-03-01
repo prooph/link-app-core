@@ -43,7 +43,7 @@ final class ApplicationDataTypeLocation extends AbstractLocation
     public function addDataTypeClass($dataTypeFQCN, $classContent, $replace = false)
     {
         if (strpos($dataTypeFQCN, "Prooph\\Link\\Application\\DataType\\") !== 0) {
-            throw new \InvalidArgumentException("Namespace of data type should start with Application\\DataType\\. Got " . $dataTypeFQCN);
+            throw new \InvalidArgumentException("Namespace of data type should start with Prooph\\Link\\Application\\DataType\\. Got " . $dataTypeFQCN);
         }
         $nsDirs = explode("\\", str_replace("Prooph\\Link\\Application\\DataType\\", "", $dataTypeFQCN));
 

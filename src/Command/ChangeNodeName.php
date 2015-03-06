@@ -17,7 +17,7 @@ use Prooph\Processing\Processor\NodeName;
  * Command ChangeNodeName
  *
  * @package SystemConfig\Command
- * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
+ * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class ChangeNodeName extends SystemCommand
 {

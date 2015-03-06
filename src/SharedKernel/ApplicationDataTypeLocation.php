@@ -21,7 +21,7 @@ namespace Prooph\Link\Application\SharedKernel;
  * starting in the directory described by this location.
  *
  * @package Application\SharedKernel
- * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
+ * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class ApplicationDataTypeLocation extends AbstractLocation
 {

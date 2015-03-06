@@ -17,7 +17,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * Class ControllerTranslatorProvider
  *
  * @package Application\Service
- * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
+ * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class ControllerTranslatorProvider implements InitializerInterface
 {

@@ -17,7 +17,7 @@ namespace Prooph\Link\Application\SharedKernel;
  * The directory and all sub dirs should be writable.
  *
  * @package Application\SharedKernel
- * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
+ * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class DataLocation extends AbstractLocation
 {

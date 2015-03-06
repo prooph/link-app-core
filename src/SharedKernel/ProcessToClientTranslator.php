@@ -17,7 +17,7 @@ use Prooph\Processing\Processor\Definition;
  * Class ProcessToClientTranslator
  *
  * @package Application\SharedKernel
- * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
+ * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class ProcessToClientTranslator 
 {

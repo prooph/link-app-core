@@ -16,7 +16,7 @@ use Prooph\ServiceBus\InvokeStrategy\AbstractInvokeStrategy;
  * Class SingleHandleMethodInvokeStrategy
  *
  * @package Application\ProophPlugin
- * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
+ * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class SingleHandleMethodInvokeStrategy extends AbstractInvokeStrategy
 {

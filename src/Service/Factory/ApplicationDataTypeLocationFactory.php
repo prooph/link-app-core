@@ -18,7 +18,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * Class ApplicationDataTypeLocationFactory
  *
  * @package Application\Service\Factory
- * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
+ * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class ApplicationDataTypeLocationFactory implements FactoryInterface
 {

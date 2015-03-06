@@ -17,7 +17,7 @@ use Prooph\ServiceBus\CommandBus;
  * Interface ActionController
  *
  * @package Application\Service
- * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
+ * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 interface ActionController 
 {

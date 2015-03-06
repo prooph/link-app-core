@@ -17,7 +17,7 @@ use Prooph\Link\Application\Model\ProcessingConfig;
  * Class ChangeNodeNameHandler
  *
  * @package SystemConfig\Model\ProcessingConfig
- * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
+ * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class ChangeNodeNameHandler extends SystemConfigChangesHandler
 {

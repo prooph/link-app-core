@@ -17,7 +17,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * Class ActionControllerInitializer
  *
  * @package Application\src\Service
- * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
+ * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class ActionControllerInitializer implements InitializerInterface
 {

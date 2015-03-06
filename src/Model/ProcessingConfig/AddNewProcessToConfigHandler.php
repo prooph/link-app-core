@@ -19,7 +19,7 @@ use Prooph\Link\Application\Model\ProcessingConfig;
  * Adds a new process definition to processing config
  *
  * @package SystemConfig\Model\ProcessingConfig
- * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
+ * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class AddNewProcessToConfigHandler extends SystemConfigChangesHandler
 {

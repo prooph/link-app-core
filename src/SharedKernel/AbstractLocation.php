@@ -16,7 +16,7 @@ namespace Prooph\Link\Application\SharedKernel;
  * Base class for locations
  *
  * @package Application\SharedKernel
- * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
+ * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 abstract class AbstractLocation
 {

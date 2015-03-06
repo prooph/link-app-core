@@ -19,7 +19,7 @@ use Prooph\Processing\Message\LogMessage;
  * they can be interpreted by the process monitor and/or by other connectors/plugins.
  *
  * @package Application\SharedKernel
- * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
+ * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class MessageMetadata 
 {

@@ -24,7 +24,7 @@ use ZF\ApiProblem\ApiProblemResponse;
  * This controller respond only to AJAX requests. The UI triggers config changes individually.
  *
  * @package Prooph\Link\Application\Controller
- * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
+ * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class ConfigurationController extends AbstractActionController
 {

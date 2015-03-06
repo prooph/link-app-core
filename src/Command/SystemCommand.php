@@ -19,7 +19,7 @@ use Rhumsaa\Uuid\Uuid;
  * All commands that trigger changes in the system must be of type SystemCommand
  *
  * @package Application\Command
- * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
+ * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 abstract class SystemCommand extends Command
 {

@@ -18,7 +18,7 @@ use ZF\ApiProblem\ApiProblemResponse;
  * Class AbstractRestController
  *
  * @package Application\Service
- * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
+ * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 class AbstractRestController extends AbstractRestfulController
 {

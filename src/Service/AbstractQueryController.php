@@ -20,7 +20,7 @@ use Prooph\Link\Application\Projection\ProcessingConfig;
  * A query controller only communicates with the read side of the application and performs NO ACTIONS only queries.
  *
  * @package Application\Service
- * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
+ * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 class AbstractQueryController extends \Zend\Mvc\Controller\AbstractActionController implements NeedsSystemConfig
 {

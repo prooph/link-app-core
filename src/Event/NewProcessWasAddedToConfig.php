@@ -14,7 +14,7 @@ namespace Prooph\Link\Application\Event;
  * Class NewProcessWasAddedToConfig
  *
  * @package SystemConfig\Event
- * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
+ * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class NewProcessWasAddedToConfig extends SystemChanged
 {

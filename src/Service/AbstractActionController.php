@@ -19,7 +19,7 @@ use Zend\Mvc\I18n\Translator;
  * Basic action controller that is is aware of using a command bus to send commands to the model.
  *
  * @package Application\Service
- * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
+ * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 class AbstractActionController extends \Zend\Mvc\Controller\AbstractActionController
     implements ActionController, TranslatorAwareController

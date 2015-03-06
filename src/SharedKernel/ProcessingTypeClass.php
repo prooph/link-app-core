@@ -18,7 +18,7 @@ use Prooph\Processing\Message\MessageNameUtils;
  * Small helper to convert the data type part of a workflow message name back to the type class
  *
  * @package Application\SharedKernel
- * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
+ * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class ProcessingTypeClass
 {

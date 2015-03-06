@@ -16,7 +16,7 @@ use Prooph\Link\Application\SharedKernel\ConfigLocation;
  * Class AddNewProcessToConfig
  *
  * @package SystemConfig\Command
- * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
+ * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class AddNewProcessToConfig extends SystemCommand
 {

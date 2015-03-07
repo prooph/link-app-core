@@ -43,7 +43,13 @@ class DashboardWidgetController extends AbstractWidgetController
         $params['config_dir'] = $this->systemConfig->getConfigLocation()->toString();
         $params['config_file_name'] = ProcessingConfig::configFileName();
 
-        return DashboardWidget::initialize('prooph/link/system-config/dashboard/widget', 'System Configuration', 4, $params);
+        return DashboardWidget::initialize(
+            $this->widgetConfig->get('template', 'prooph/link/system-config/dashboard/widget'),
+            $this->widgetConfig->get('title', 'System Configuration'),
+            $this->widgetConfig->get('cols', 4),
+            $params,
+            $this->widgetConfig->get('group_title')
+        );
     }
 }
  

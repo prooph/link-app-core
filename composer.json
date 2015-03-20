@@ -20,7 +20,7 @@
     "require": {
         "php": ">=5.5",
         "zendframework/zendframework": "~2.3",
-        "prooph/processing" : "dev-master",
+        "prooph/processing" : "v0.2.*",
         "zfcampus/zf-api-problem": "~1.0",
         "zfcampus/zf-content-negotiation": "~1.0",
         "prooph/prooph-service-bus-module": "~2.0",

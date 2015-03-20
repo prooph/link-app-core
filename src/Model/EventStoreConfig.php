@@ -64,7 +64,8 @@ final class EventStoreConfig implements SystemChangedEventRecorder
                         'connection' => [
                             'driver' => 'pdo_sqlite',
                             'path'   => $sqliteDbFile->toString()
-                        ]
+                        ],
+                        'serializer_adapter' => 'json',
                     ]
                 ]
             ]

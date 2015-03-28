@@ -79,6 +79,22 @@ final class ProcessingConfig
     }
 
     /**
+     * @return bool
+     */
+    public function isJavascriptTickerEnabled()
+    {
+        return $this->config->booleanValue('processing.js_ticker.enabled');
+    }
+
+    /**
+     * @return int
+     */
+    public function getJavascriptTickerInterval()
+    {
+        return $this->config->integerValue('processing.js_ticker.interval', 3);
+    }
+
+    /**
      * @return array
      */
     public function getProcessDefinitions()

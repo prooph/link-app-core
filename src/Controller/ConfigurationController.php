@@ -10,6 +10,7 @@
  */
 namespace Prooph\Link\Application\Controller;
 
+use Prooph\Link\Application\Command\ConfigureJavascriptTicker;
 use Prooph\Link\Application\Service\AbstractActionController;
 use Prooph\Link\Application\SharedKernel\ConfigLocation;
 use Prooph\Processing\Processor\NodeName;
@@ -43,6 +44,33 @@ final class ConfigurationController extends AbstractActionController
             NodeName::fromString($nodeName),
             ConfigLocation::fromPath(Definition::getSystemConfigDir())
         ));
+
+        return ['success' => true];
+    }
+
+    /**
+     * Handles a POST request to configure the javascript ticker
+     */
+    public function configureJavascriptTickerAction()
+    {
+        $tickerEnabled = $this->bodyParam('enabled');
+        $tickerInterval = $this->bodyParam('interval');
+
+        if (! is_bool($tickerEnabled)) {
+            return new ApiProblemResponse(new ApiProblem(422, $this->translator->translate('The enabled flag should be a boolean value')));
+        }
+
+        if (! is_int($tickerInterval) || $tickerInterval <= 0) {
+            return new ApiProblemResponse(new ApiProblem(422, $this->translator->translate('The ticker interval should greater than zero')));
+        }
+
+        $this->commandBus->dispatch(
+            ConfigureJavascriptTicker::set(
+                $tickerEnabled,
+                $tickerInterval,
+                ConfigLocation::fromPath(Definition::getSystemConfigDir())
+            )
+        );
 
         return ['success' => true];
     }

@@ -40,11 +40,16 @@ if ($this->processingConfig->isConfigured()) {
 $this->inlineScript()->captureStart();
 
 $nodeName = $this->processingConfig->getNodeName();
+$jsTicker = json_encode([
+    'enabled' => $this->processingConfig->isJavascriptTickerEnabled(),
+    'interval' => $this->processingConfig->getJavascriptTickerInterval(),
+]);
 
 echo <<<JS
 window.SysConf = Prooph.Link.App.create(
     {
-        node_name : '$nodeName'
+        node_name : '$nodeName',
+        js_ticker : {$jsTicker}
     }
 );
 

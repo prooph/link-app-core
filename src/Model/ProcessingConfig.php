@@ -11,6 +11,7 @@
 
 namespace Prooph\Link\Application\Model;
 
+use Prooph\Link\Application\Event\JavascriptTickerWasConfigured;
 use Prooph\Link\Application\Event\RecordsSystemChangedEvents;
 use Prooph\Link\Application\Event\SystemChangedEventRecorder;
 use Prooph\Link\Application\SharedKernel\ProcessingTypeClass;
@@ -75,7 +76,13 @@ final class ProcessingConfig implements SystemChangedEventRecorder
     {
         $env = Environment::setUp();
 
-        $instance = new self(['processing' => array_merge($env->getConfig()->toArray(), ["connectors" => []])], $configLocation);
+        $instance = new self(['processing' => array_merge(
+            $env->getConfig()->toArray(),
+            [
+                "connectors" => [],
+                "js_ticker" => ['enabled' => false, 'interval' => 3],
+            ]
+        )], $configLocation);
 
         $configFilePath = $configLocation->toString() . DIRECTORY_SEPARATOR . self::$configFileName;
 
@@ -290,6 +297,26 @@ final class ProcessingConfig implements SystemChangedEventRecorder
     }
 
     /**
+     * Configure the javascript ticker
+     *
+     * @param array $jsTickerConfig
+     * @param ConfigWriter $configWriter
+     */
+    public function configureJavascriptTicker(array $jsTickerConfig, ConfigWriter $configWriter)
+    {
+        $this->assertJsTickerConfig($jsTickerConfig);
+        $oldConfig = $this->config['processing']['js_ticker'];
+        $this->config['processing']['js_ticker'] = $jsTickerConfig;
+
+        $configWriter->replaceConfigInDirectory(
+            $this->toArray(),
+            $this->configLocation->toString() . DIRECTORY_SEPARATOR . self::$configFileName
+        );
+
+        $this->recordThat(JavascriptTickerWasConfigured::to($jsTickerConfig, $oldConfig));
+    }
+
+    /**
      * Assert and set config
      *
      * @param array $config
@@ -308,6 +335,8 @@ final class ProcessingConfig implements SystemChangedEventRecorder
         if (! isset($config['processing']['channels']['local']))                       throw new \InvalidArgumentException('Missing local channel config in processing.channels');
         if (! array_key_exists('processes', $config['processing']))                    throw new \InvalidArgumentException('Missing key processes in processing config');
         if (! is_array($config['processing']['processes']))                            throw new \InvalidArgumentException('Processes must be an array in processing config');
+        if (! array_key_exists('js_ticker', $config['processing']))                    throw new \InvalidArgumentException('Missing key js_ticker in processing config');
+        if (! is_array($config['processing']['js_ticker']))                            throw new \InvalidArgumentException('js_ticker must be an array in processing config');
 
         $this->assertChannelConfig($config['processing']['channels']['local'], 'local');
 
@@ -323,6 +352,8 @@ final class ProcessingConfig implements SystemChangedEventRecorder
             if (! is_array($connectorConfig)) throw new \InvalidArgumentException(sprintf('Connector config for connector %s must be an array', $connectorId));
             $this->assertConnectorConfig($connectorId, $connectorConfig, $projection, false);
         }
+
+        $this->assertJsTickerConfig($config['processing']['js_ticker']);
 
         $this->config = $config;
     }
@@ -461,6 +492,12 @@ final class ProcessingConfig implements SystemChangedEventRecorder
                 if (! in_array($connectorConfig['preferred_type'], $config->getAllAvailableProcessingTypes())) throw new \InvalidArgumentException(sprintf('Preferred data type %s is not known by the system in connector config %s', $connectorConfig['preferred_type'], $connectorId));
             }
         }
+    }
+
+    private function assertJsTickerConfig(array $jsTicker)
+    {
+        if (! array_key_exists('enabled', $jsTicker)) throw new \InvalidArgumentException('Missing key enabled in processing.js_ticker config');
+        if (! array_key_exists('interval', $jsTicker)) throw new \InvalidArgumentException('Missing key interval in processing.js_ticker config');
     }
 
     /**

@@ -43,8 +43,6 @@ class OverviewController extends AbstractQueryController
         $params['config_dir'] = $this->systemConfig->getConfigLocation()->toString();
         $params['config_file_name'] = ProcessingConfig::configFileName();
 
-        $this->layout()->setVariable('includeRiotJs', true);
-
         $model = new ViewModel($params);
 
         $model->setTemplate('prooph/link/system-config/overview/show');

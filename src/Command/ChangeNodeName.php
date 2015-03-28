@@ -39,13 +39,7 @@ final class ChangeNodeName extends SystemCommand
         return NodeName::fromString($this->payload['node_name']);
     }
 
-    /**
-     * @return ConfigLocation
-     */
-    public function configLocation()
-    {
-        return ConfigLocation::fromPath($this->payload['config_location']);
-    }
+
 
     /**
      * @param null|array $aPayload

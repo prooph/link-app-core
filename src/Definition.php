@@ -19,6 +19,8 @@ namespace Prooph\Link\Application;
  */
 final class Definition
 {
+    const APP_SERVICE_WORKFLOW_PROCESSOR_MESSAGE_QUEUE = 'prooph.link.app.workflow_processor_message_queue';
+
     /**
      * @return string
      */

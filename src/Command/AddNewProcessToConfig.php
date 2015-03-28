@@ -74,21 +74,11 @@ final class AddNewProcessToConfig extends SystemCommand
         return $this->payload['tasks'];
     }
 
-    /**
-     * @return ConfigLocation
-     */
-    public function configLocation()
-    {
-        return ConfigLocation::fromPath($this->payload['config_location']);
-    }
-
     protected function assertPayload($aPayload = null)
     {
-        if (! is_array($aPayload)) throw new \InvalidArgumentException("Payload must be an array");
         if (! array_key_exists("name",$aPayload)) throw new \InvalidArgumentException("Process name missing");
         if (! array_key_exists("process_type",$aPayload)) throw new \InvalidArgumentException("Process type missing");
         if (! array_key_exists("start_message",$aPayload)) throw new \InvalidArgumentException("Start message missing");
         if (! array_key_exists("tasks",$aPayload)) throw new \InvalidArgumentException("Tasks missing");
-        if (! array_key_exists("config_location",$aPayload)) throw new \InvalidArgumentException("Config location missing");
     }
 }

@@ -10,6 +10,7 @@
  */
 namespace Prooph\Link\Application\Command;
 
+use Prooph\Link\Application\SharedKernel\ConfigLocation;
 use Prooph\ServiceBus\Command;
 use Rhumsaa\Uuid\Uuid;
 
@@ -52,9 +53,29 @@ abstract class SystemCommand extends Command
      */
     public function __construct($aMessageName, $aPayload = null, $aVersion = 1, Uuid $aUuid = null, \DateTime $aCreatedOn = null)
     {
+        $this->assertCommonPayload($aPayload);
         $this->assertPayload($aPayload);
         parent::__construct($aMessageName, $aPayload, $aVersion, $aUuid, $aCreatedOn);
     }
 
     abstract protected function assertPayload($aPayload = null);
+
+    /**
+     * @return ConfigLocation
+     */
+    public function configLocation()
+    {
+        return ConfigLocation::fromPath($this->payload['config_location']);
+    }
+
+    private function assertCommonPayload($aPayload)
+    {
+        if (! is_array($aPayload) || ! array_key_exists('config_location', $aPayload)) {
+            throw new \InvalidArgumentException('Payload does not contain a config_location');
+        }
+
+        if (! is_string($aPayload['config_location'])) {
+            throw new \InvalidArgumentException("Config location must be string, but type " . gettype($aPayload['config_location']) . " given");
+        }
+    }
 } 

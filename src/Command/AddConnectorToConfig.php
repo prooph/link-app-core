@@ -62,14 +62,6 @@ final class AddConnectorToConfig extends SystemCommand
     }
 
     /**
-     * @return ConfigLocation
-     */
-    public function configLocation()
-    {
-        return ConfigLocation::fromPath($this->payload['config_location']);
-    }
-
-    /**
      * @return array
      */
     public function allowedMessage()
@@ -95,10 +87,8 @@ final class AddConnectorToConfig extends SystemCommand
 
     protected function assertPayload($aPayload = null)
     {
-        if (! is_array($aPayload)) throw new \InvalidArgumentException("Payload must be an array");
         if (! array_key_exists("connector_id",$aPayload)) throw new \InvalidArgumentException("Connector id missing");
         if (! array_key_exists("connector_name",$aPayload)) throw new \InvalidArgumentException("Connector name missing");
-        if (! array_key_exists("config_location",$aPayload)) throw new \InvalidArgumentException("Config location missing");
         if (! array_key_exists("allowed_messages",$aPayload)) throw new \InvalidArgumentException("Allowed messages missing");
         if (! is_array($aPayload['allowed_messages'])) throw new \InvalidArgumentException("Allowed messages must be an array");
         if (! array_key_exists("allowed_types",$aPayload)) throw new \InvalidArgumentException("Allowed types missing");

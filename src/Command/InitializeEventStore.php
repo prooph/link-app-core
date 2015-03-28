@@ -35,7 +35,7 @@ final class InitializeEventStore extends SystemCommand
             __CLASS__,
             [
                 'sqlite_db_file' => $sqliteDbFile->toString(),
-                'es_config_location' => $eventStoreConfigLocation->toString()
+                'config_location' => $eventStoreConfigLocation->toString()
             ]
         );
     }
@@ -45,7 +45,7 @@ final class InitializeEventStore extends SystemCommand
      */
     public function eventStoreConfigLocation()
     {
-        return ConfigLocation::fromPath($this->payload['es_config_location']);
+        return self::configLocation();
     }
 
     /**
@@ -58,9 +58,7 @@ final class InitializeEventStore extends SystemCommand
 
     protected function assertPayload($aPayload = null)
     {
-        if (! is_array($aPayload)) throw new \InvalidArgumentException("Payload must be an array");
         if (! array_key_exists("sqlite_db_file",$aPayload)) throw new \InvalidArgumentException("Sqlite db file missing");
-        if (! array_key_exists("es_config_location",$aPayload)) throw new \InvalidArgumentException("Event store config location missing");
     }
 }
  

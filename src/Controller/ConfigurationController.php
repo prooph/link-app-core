@@ -11,6 +11,8 @@
 namespace Prooph\Link\Application\Controller;
 
 use Prooph\Link\Application\Command\ConfigureJavascriptTicker;
+use Prooph\Link\Application\Command\DisableWorkflowProcessorMessageQueue;
+use Prooph\Link\Application\Command\EnableWorkflowProcessorMessageQueue;
 use Prooph\Link\Application\Service\AbstractActionController;
 use Prooph\Link\Application\SharedKernel\ConfigLocation;
 use Prooph\Processing\Processor\NodeName;
@@ -71,6 +73,30 @@ final class ConfigurationController extends AbstractActionController
                 ConfigLocation::fromPath(Definition::getSystemConfigDir())
             )
         );
+
+        return ['success' => true];
+    }
+
+    /**
+     * Handles a POST request to enable or disable the workflow processor message queue
+     */
+    public function configureWorkflowProcessorMessageQueueAction()
+    {
+        $queueEnabled = $this->bodyParam('enabled');
+
+        if (! is_bool($queueEnabled)) {
+            return new ApiProblemResponse(new ApiProblem(422, $this->translator->translate('The enabled flag should be a boolean value')));
+        }
+
+        if ($queueEnabled) {
+            $this->commandBus->dispatch(
+                EnableWorkflowProcessorMessageQueue::in(ConfigLocation::fromPath(Definition::getSystemConfigDir()))
+            );
+        } else {
+            $this->commandBus->dispatch(
+                DisableWorkflowProcessorMessageQueue::in(ConfigLocation::fromPath(Definition::getSystemConfigDir()))
+            );
+        }
 
         return ['success' => true];
     }

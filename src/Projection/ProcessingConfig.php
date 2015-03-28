@@ -95,6 +95,17 @@ final class ProcessingConfig
     }
 
     /**
+     * @return bool
+     */
+    public function isWorkflowProcessorMessageQueueEnabled()
+    {
+        return ! empty($this->config->arrayValue(
+            'processing.channels.'
+            . \Prooph\Link\Application\Model\ProcessingConfig::WORKFLOW_PROCESSOR_MESSAGE_QUEUE_CHANNEL
+        ));
+    }
+
+    /**
      * @return array
      */
     public function getProcessDefinitions()

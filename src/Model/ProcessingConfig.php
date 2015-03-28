@@ -14,6 +14,8 @@ namespace Prooph\Link\Application\Model;
 use Prooph\Link\Application\Event\JavascriptTickerWasConfigured;
 use Prooph\Link\Application\Event\RecordsSystemChangedEvents;
 use Prooph\Link\Application\Event\SystemChangedEventRecorder;
+use Prooph\Link\Application\Event\WorkflowProcessorMessageQueueWasEnabled;
+use Prooph\Link\Application\Event\WorkflowProcessorMessageWasDisabled;
 use Prooph\Link\Application\SharedKernel\ProcessingTypeClass;
 use Prooph\Processing\Environment\Environment;
 use Prooph\Processing\Message\MessageNameUtils;
@@ -41,6 +43,8 @@ use Zend\Stdlib\ErrorHandler;
 final class ProcessingConfig implements SystemChangedEventRecorder
 {
     use RecordsSystemChangedEvents;
+
+    const WORKFLOW_PROCESSOR_MESSAGE_QUEUE_CHANNEL = 'workflow_processor_message_queue';
 
     /**
      * @var array
@@ -177,16 +181,25 @@ final class ProcessingConfig implements SystemChangedEventRecorder
 
         $this->config['processing']['node_name'] = $newNodeName->toString();
 
-        foreach ($this->config['processing']['channels']['local']['targets'] as $i => $target) {
-            if ($target === $oldNodeName->toString()) {
-                $this->config['processing']['channels']['local']['targets'][$i] = $newNodeName->toString();
+        $oldNodeNameAsString = $oldNodeName->toString();
+
+        foreach ($this->config['processing']['channels'] as &$channelConfig) {
+            foreach ($channelConfig['targets'] as $i => $target) {
+                if ($target === $oldNodeNameAsString) {
+                    $channelConfig['targets'][$i] = $newNodeName->toString();
+                }
+            }
+
+            if (isset($channelConfig['origin']) && $channelConfig['origin'] === $oldNodeNameAsString) {
+                $channelConfig['origin'] = $newNodeName->toString();
+            }
+
+            if (isset($channelConfig['sender']) && $channelConfig['sender'] === $oldNodeNameAsString) {
+                $channelConfig['sender'] = $newNodeName->toString();
             }
         }
 
-        $configWriter->replaceConfigInDirectory(
-            $this->toArray(),
-            $this->configLocation->toString() . DIRECTORY_SEPARATOR . self::$configFileName
-        );
+        $this->writeConfig($configWriter);
 
         $this->recordThat(NodeNameWasChanged::to($newNodeName, $oldNodeName));
     }
@@ -208,10 +221,7 @@ final class ProcessingConfig implements SystemChangedEventRecorder
 
         $this->config['processing']['processes'][$startMessage] = $processConfig;
 
-        $configWriter->replaceConfigInDirectory(
-            $this->toArray(),
-            $this->configLocation->toString() . DIRECTORY_SEPARATOR . self::$configFileName
-        );
+        $this->writeConfig($configWriter);
 
         $this->recordThat(NewProcessWasAddedToConfig::withDefinition($startMessage, $processConfig));
     }
@@ -233,10 +243,7 @@ final class ProcessingConfig implements SystemChangedEventRecorder
 
         $this->config['processing']['processes'][$startMessage] = $processConfig;
 
-        $configWriter->replaceConfigInDirectory(
-            $this->toArray(),
-            $this->configLocation->toString() . DIRECTORY_SEPARATOR . self::$configFileName
-        );
+        $this->writeConfig($configWriter);
 
         $this->recordThat(ProcessConfigWasChanged::to($processConfig, $oldProcessConfig, $startMessage));
     }
@@ -264,10 +271,7 @@ final class ProcessingConfig implements SystemChangedEventRecorder
 
         $this->config['processing']['connectors'][$connectorId] = $connectorConfig;
 
-        $configWriter->replaceConfigInDirectory(
-            $this->toArray(),
-            $this->configLocation->toString() . DIRECTORY_SEPARATOR . self::$configFileName
-        );
+        $this->writeConfig($configWriter);
 
         $this->recordThat(ConnectorWasAddedToConfig::withDefinition($connectorId, $connectorConfig));
     }
@@ -288,10 +292,7 @@ final class ProcessingConfig implements SystemChangedEventRecorder
 
         $this->config['processing']['connectors'][$connectorId] = $connectorConfig;
 
-        $configWriter->replaceConfigInDirectory(
-            $this->toArray(),
-            $this->configLocation->toString() . DIRECTORY_SEPARATOR . self::$configFileName
-        );
+        $this->writeConfig($configWriter);
 
         $this->recordThat(ConnectorConfigWasChanged::to($connectorConfig, $oldConfig, $connectorId));
     }
@@ -308,12 +309,47 @@ final class ProcessingConfig implements SystemChangedEventRecorder
         $oldConfig = $this->config['processing']['js_ticker'];
         $this->config['processing']['js_ticker'] = $jsTickerConfig;
 
-        $configWriter->replaceConfigInDirectory(
-            $this->toArray(),
-            $this->configLocation->toString() . DIRECTORY_SEPARATOR . self::$configFileName
-        );
+        $this->writeConfig($configWriter);
 
         $this->recordThat(JavascriptTickerWasConfigured::to($jsTickerConfig, $oldConfig));
+    }
+
+    /**
+     * @param ConfigWriter $configWriter
+     * @throws \RuntimeException
+     */
+    public function enableWorkflowProcessorMessageQueue(ConfigWriter $configWriter)
+    {
+        if (isset($this->config['processing']['channels'][self::WORKFLOW_PROCESSOR_MESSAGE_QUEUE_CHANNEL])) {
+            throw new \RuntimeException(
+                sprintf(
+                    'Failed to enable workflow processor message queue. A channel with name %s already exists',
+                    self::WORKFLOW_PROCESSOR_MESSAGE_QUEUE_CHANNEL
+                )
+            );
+        }
+
+        $this->config['processing']['channels'][self::WORKFLOW_PROCESSOR_MESSAGE_QUEUE_CHANNEL] = [
+            'targets' => ['*'],
+            'origin'  => $this->projection()->getNodeName(),
+            'message_dispatcher' => \Prooph\Link\Application\Definition::APP_SERVICE_WORKFLOW_PROCESSOR_MESSAGE_QUEUE,
+        ];
+
+        $this->writeConfig($configWriter);
+
+        $this->recordThat(WorkflowProcessorMessageQueueWasEnabled::record());
+    }
+
+    /**
+     * @param ConfigWriter $configWriter
+     */
+    public function disableWorkflowProcessorMessageQueue(ConfigWriter $configWriter)
+    {
+        unset($this->config['processing']['channels'][self::WORKFLOW_PROCESSOR_MESSAGE_QUEUE_CHANNEL]);
+
+        $this->writeConfig($configWriter);
+
+        $this->recordThat(WorkflowProcessorMessageWasDisabled::record());
     }
 
     /**
@@ -515,6 +551,19 @@ final class ProcessingConfig implements SystemChangedEventRecorder
         }
 
         return $this->availableMessageTypes;
+    }
+
+    /**
+     * Write config to file with the help of a config writer
+     *
+     * @param ConfigWriter $configWriter
+     */
+    private function writeConfig(ConfigWriter $configWriter)
+    {
+        $configWriter->replaceConfigInDirectory(
+            $this->toArray(),
+            $this->configLocation->toString() . DIRECTORY_SEPARATOR . self::$configFileName
+        );
     }
 }
  

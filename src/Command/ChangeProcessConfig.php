@@ -55,21 +55,12 @@ final class ChangeProcessConfig extends SystemCommand
         return $this->payload['start_message'];
     }
 
-    /**
-     * @return ConfigLocation
-     */
-    public function configLocation()
-    {
-        return ConfigLocation::fromPath($this->payload['config_location']);
-    }
-
     protected function assertPayload($aPayload = null)
     {
         if (! is_array($aPayload)) throw new \InvalidArgumentException("Payload must be an array");
         if (! array_key_exists("start_message",$aPayload)) throw new \InvalidArgumentException("Name of start message missing");
         if (! array_key_exists("process_config",$aPayload)) throw new \InvalidArgumentException("Process config missing");
         if (! is_array($aPayload['process_config'])) throw new \InvalidArgumentException("Process config must be an array");
-        if (! array_key_exists("config_location",$aPayload)) throw new \InvalidArgumentException("Config location missing");
     }
 }
  

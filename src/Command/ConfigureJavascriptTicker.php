@@ -52,14 +52,6 @@ final class ConfigureJavascriptTicker extends SystemCommand
     }
 
     /**
-     * @return ConfigLocation
-     */
-    public function configLocation()
-    {
-        return ConfigLocation::fromPath($this->payload['config_location']);
-    }
-
-    /**
      * Assert that payload contains all required information for this command
      *
      * @param null|array $aPayload
@@ -67,16 +59,11 @@ final class ConfigureJavascriptTicker extends SystemCommand
      */
     protected function assertPayload($aPayload = null)
     {
-        if (! is_array($aPayload) || ! array_key_exists('enabled', $aPayload) || ! array_key_exists('interval', $aPayload)) {
+        if (! array_key_exists('enabled', $aPayload) || ! array_key_exists('interval', $aPayload)) {
             throw new \InvalidArgumentException('Payload does not contain a enabled or interval key');
-        }
-
-        if (! array_key_exists('config_location', $aPayload)) {
-            throw new \InvalidArgumentException('Payload does not contain a config_location');
         }
 
         if (! is_bool($aPayload['enabled'])) throw new \InvalidArgumentException('Enabled flag must be a boolean value');
         if (! is_int($aPayload['interval'])) throw new \InvalidArgumentException('Ticker interval must be an integer');
-        if (! is_string($aPayload['config_location'])) throw new \InvalidArgumentException('Config location must be string');
     }
 }

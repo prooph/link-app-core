@@ -27,7 +27,7 @@ final class UndoSystemSetUp extends SystemCommand
      */
     public static function removeConfigs($systemConfigLocation, $eventStoreConfigLocation, $sqliteDbFile)
     {
-        return new self(__CLASS__, ['processing_config_location' => $systemConfigLocation, 'es_config_location' => $eventStoreConfigLocation, 'sqlite_db_file' => $sqliteDbFile]);
+        return new self(__CLASS__, ['config_location' => $systemConfigLocation, 'es_config_location' => $eventStoreConfigLocation, 'sqlite_db_file' => $sqliteDbFile]);
     }
 
     /**
@@ -35,7 +35,7 @@ final class UndoSystemSetUp extends SystemCommand
      */
     public function processingConfigLocation()
     {
-        return $this->payload['processing_config_location'];
+        return $this->payload['config_location'];
     }
 
     /**
@@ -56,8 +56,6 @@ final class UndoSystemSetUp extends SystemCommand
 
     protected function assertPayload($aPayload = null)
     {
-        if (! is_array($aPayload)) throw new \InvalidArgumentException("Payload must be an array");
-        if (! array_key_exists("processing_config_location",$aPayload)) throw new \InvalidArgumentException("processing_config_location missing");
         if (! array_key_exists("es_config_location",$aPayload)) throw new \InvalidArgumentException("Event store config location missing");
         if (! array_key_exists("sqlite_db_file",$aPayload)) throw new \InvalidArgumentException("sqlite_db_file missing");
     }

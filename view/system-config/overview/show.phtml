@@ -44,12 +44,15 @@ $jsTicker = json_encode([
     'enabled' => $this->processingConfig->isJavascriptTickerEnabled(),
     'interval' => $this->processingConfig->getJavascriptTickerInterval(),
 ]);
-
+$workflowProcessorMessageQueue = json_encode(['enabled' => $this->processingConfig->isWorkflowProcessorMessageQueueEnabled()]);
+$workflowProcessorMessageQueueAvailable = ($this->workflow_processor_message_queue_available)? 'true' : 'false';
 echo <<<JS
 window.SysConf = Prooph.Link.App.create(
     {
         node_name : '$nodeName',
-        js_ticker : {$jsTicker}
+        js_ticker : {$jsTicker},
+        workflow_processor_message_queue : {$workflowProcessorMessageQueue},
+        workflow_processor_message_queue_available : {$workflowProcessorMessageQueueAvailable}
     }
 );
 

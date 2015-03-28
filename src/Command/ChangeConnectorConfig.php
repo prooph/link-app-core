@@ -46,21 +46,11 @@ final class ChangeConnectorConfig extends SystemCommand
         return $this->payload['connector_config'];
     }
 
-    /**
-     * @return ConfigLocation
-     */
-    public function configLocation()
-    {
-        return ConfigLocation::fromPath($this->payload['config_location']);
-    }
-
     protected function assertPayload($aPayload = null)
     {
-        if (! is_array($aPayload)) throw new \InvalidArgumentException("Payload must be an array");
         if (! array_key_exists("connector_id",$aPayload)) throw new \InvalidArgumentException("Connector id missing");
         if (! array_key_exists("connector_config",$aPayload)) throw new \InvalidArgumentException("Connector config missing");
         if (! is_array($aPayload['connector_config'])) throw new \InvalidArgumentException("Connector config must be an array");
-        if (! array_key_exists("config_location",$aPayload)) throw new \InvalidArgumentException("Config location missing");
     }
 }
  

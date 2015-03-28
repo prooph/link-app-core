@@ -11,6 +11,7 @@
 
 namespace Prooph\Link\Application\Controller;
 
+use Prooph\Link\Application\Definition;
 use Prooph\Link\Application\Model\ProcessingConfig;
 use Prooph\Link\Application\Service\AbstractQueryController;
 use Zend\View\Model\ViewModel;
@@ -31,6 +32,8 @@ class OverviewController extends AbstractQueryController
         $params = [];
 
         $params['processingConfig'] = $this->systemConfig;
+
+        $params['workflow_processor_message_queue_available'] = $this->getServiceLocator()->has(Definition::APP_SERVICE_WORKFLOW_PROCESSOR_MESSAGE_QUEUE);
 
         $params['config_dir_is_writable'] = is_writable($this->systemConfig->getConfigLocation()->toString());
 

@@ -41,29 +41,12 @@ final class CreateDefaultProcessingConfigFile extends SystemCommand
     }
 
     /**
-     * @return ConfigLocation
-     */
-    public function configLocation()
-    {
-        if (is_null($this->configLocation)) {
-            $this->configLocation = ConfigLocation::fromPath($this->payload['config_location']);
-        }
-        return $this->configLocation;
-    }
-
-    /**
      * @param null|array $aPayload
      * @throws \InvalidArgumentException
      */
     protected function assertPayload($aPayload = null)
     {
-        if (! is_array($aPayload) || ! array_key_exists('config_location', $aPayload)) {
-            throw new \InvalidArgumentException('Payload does not contain a config_location');
-        }
-
-        if (! is_string($aPayload['config_location'])) {
-            throw new \InvalidArgumentException("Config location must be string, but type " . gettype($aPayload['config_location']) . " given");
-        }
+        //Nothing to do here
     }
 }
  

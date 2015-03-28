@@ -1,0 +1,64 @@
+<div class="row" if="{ app.workflow_processor_message_queue_available }">
+    <div class="col-md-3">
+        <p class="text-info text-btn-align"><strong><?php echo $this->translate('Message Queue')?></strong></p>
+    </div>
+    <div class="col-md-3 col-md-offset-3">
+        <button id="system_workflow_processor_message_queue" class="btn btn-default" onclick="{ onToggleQueue }"><?php echo $this->translate('disabled'); ?></button>
+    </div>
+</div>
+<div class="row" if="{ ! app.workflow_processor_message_queue_available }">
+    <div class="col-md-12">
+        <p class="text-info"><?php echo $this->translate('This feature is not available. Please install a message queue service first!') ?></p>
+    </div>
+</div>
+<script type="text/javascript">
+    function (context) {
+        this.app = context.app;
+
+        var self = this;
+
+        this.onToggleQueue = function (e) {
+            this.toggleQueue(true);
+        }
+
+        this.toggleQueue = function (saveChanges) {
+            var $btn = $('#system_workflow_processor_message_queue'),
+                enabled = false;
+
+            if (typeof saveChanges == "undefined") {
+                saveChanges = false;
+            }
+
+            if ($btn.hasClass('active')) {
+                $btn.toggleClass('active');
+                $btn.html('<?php echo $this->translate('disabled') ?>');
+                enabled = false;
+            } else {
+                $btn.toggleClass('active');
+                $btn.html('<?php echo $this->translate('enabled') ?>');
+                enabled = true;
+            }
+
+            if (saveChanges) {
+                this.app.workflow_processor_message_queue.enabled = enabled;
+                this.saveQueueConfiguration();
+            }
+        }
+
+        this.saveQueueConfiguration = function () {
+            $.postJSON('<?php echo $this->url('prooph.link/system_config/configure_workflow_processor_message_queue') ?>', this.app.workflow_processor_message_queue)
+                .done(function (data) {
+                    $.notify('Message Queue <?php echo $this->translate('changes saved') ?>', 'success')
+                })
+                .fail($.failNotify);
+        }
+
+
+
+        $(function () {
+            if (self.app.workflow_processor_message_queue.enabled) {
+                self.toggleQueue(false);
+            }
+        });
+    }
+</script>

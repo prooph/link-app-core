@@ -6,6 +6,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Publish a TickOccurred event triggered by the UI
 - Make JS-Ticker configurable via UI
+- Move assertion and handling of ConfigLocation to SystemCommand
+- Enable/Disable workflow processor message queue
 - Add change log
 
 ## [0.1.1] - 2015-03-20
@@ -18,4 +20,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Runs already in production!
 
 [unreleased]: https://github.com/prooph/link-app-core/compare/v0.1.1...HEAD
-[0.1.1]: https://github.com/prooph/link-app-core/compare/v0.1.0...v0.1.1
+[0.1.1]: https://github.com/prooph/link-app-core/compare/v0.1...v0.1.1

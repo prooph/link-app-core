@@ -65,6 +65,16 @@ return array(
                                         'action' => 'configure-javascript-ticker'
                                     ]
                                 ]
+                            ],
+                            'configure_workflow_processor_message_queue' => [
+                                'type' => 'Literal',
+                                'options' => [
+                                    'route' => '/configure-workflow-processor-message-queue',
+                                    'defaults' => [
+                                        'controller' => 'Prooph\Link\Application\Controller\Configuration',
+                                        'action' => 'configure-workflow-processor-message-queue'
+                                    ]
+                                ]
                             ]
                         ]
                     ],
@@ -97,6 +107,8 @@ return array(
             'Prooph\Link\Application\Model\ProcessingConfig\AddConnectorToConfigHandler'      => 'Prooph\Link\Application\Model\ProcessingConfig\AddConnectorToConfigHandler',
             'Prooph\Link\Application\Model\ProcessingConfig\ChangeConnectorConfigHandler'     => 'Prooph\Link\Application\Model\ProcessingConfig\ChangeConnectorConfigHandler',
             'Prooph\Link\Application\Model\ProcessingConfig\ConfigureJavascriptTickerHandler' => 'Prooph\Link\Application\Model\ProcessingConfig\ConfigureJavascriptTickerHandler',
+            'Prooph\Link\Application\Model\ProcessingConfig\EnableWorkflowProcessorMessageQueueHandler'  => 'Prooph\Link\Application\Model\ProcessingConfig\EnableWorkflowProcessorMessageQueueHandler',
+            'Prooph\Link\Application\Model\ProcessingConfig\DisableWorkflowProcessorMessageQueueHandler' => 'Prooph\Link\Application\Model\ProcessingConfig\DisableWorkflowProcessorMessageQueueHandler',
         ],
         'factories' => [
             'prooph.link.app.config_location'     => 'Prooph\Link\Application\Service\Factory\ConfigLocationFactory',
@@ -125,15 +137,17 @@ return array(
     ),
     'prooph.psb' => [
         'command_router_map' => [
-            'Prooph\Link\Application\Command\CreateDefaultProcessingConfigFile' => 'Prooph\Link\Application\Model\ProcessingConfig\CreateDefaultConfigFileHandler',
-            'Prooph\Link\Application\Command\InitializeEventStore'              => 'Prooph\Link\Application\Model\ProcessingConfig\InitializeEventStoreHandler',
-            'Prooph\Link\Application\Command\ChangeNodeName'                    => 'Prooph\Link\Application\Model\ProcessingConfig\ChangeNodeNameHandler',
-            'Prooph\Link\Application\Command\ConfigureJavascriptTicker'         => 'Prooph\Link\Application\Model\ProcessingConfig\ConfigureJavascriptTickerHandler',
-            'Prooph\Link\Application\Command\AddNewProcessToConfig'             => 'Prooph\Link\Application\Model\ProcessingConfig\AddNewProcessToConfigHandler',
-            'Prooph\Link\Application\Command\ChangeProcessConfig'               => 'Prooph\Link\Application\Model\ProcessingConfig\ChangeProcessConfigHandler',
-            'Prooph\Link\Application\Command\UndoSystemSetUp'                   => 'Prooph\Link\Application\Model\ProcessingConfig\UndoSystemSetUpHandler',
-            'Prooph\Link\Application\Command\AddConnectorToConfig'              => 'Prooph\Link\Application\Model\ProcessingConfig\AddConnectorToConfigHandler',
-            'Prooph\Link\Application\Command\ChangeConnectorConfig'             => 'Prooph\Link\Application\Model\ProcessingConfig\ChangeConnectorConfigHandler',
+            'Prooph\Link\Application\Command\CreateDefaultProcessingConfigFile'    => 'Prooph\Link\Application\Model\ProcessingConfig\CreateDefaultConfigFileHandler',
+            'Prooph\Link\Application\Command\InitializeEventStore'                 => 'Prooph\Link\Application\Model\ProcessingConfig\InitializeEventStoreHandler',
+            'Prooph\Link\Application\Command\ChangeNodeName'                       => 'Prooph\Link\Application\Model\ProcessingConfig\ChangeNodeNameHandler',
+            'Prooph\Link\Application\Command\ConfigureJavascriptTicker'            => 'Prooph\Link\Application\Model\ProcessingConfig\ConfigureJavascriptTickerHandler',
+            'Prooph\Link\Application\Command\AddNewProcessToConfig'                => 'Prooph\Link\Application\Model\ProcessingConfig\AddNewProcessToConfigHandler',
+            'Prooph\Link\Application\Command\ChangeProcessConfig'                  => 'Prooph\Link\Application\Model\ProcessingConfig\ChangeProcessConfigHandler',
+            'Prooph\Link\Application\Command\UndoSystemSetUp'                      => 'Prooph\Link\Application\Model\ProcessingConfig\UndoSystemSetUpHandler',
+            'Prooph\Link\Application\Command\AddConnectorToConfig'                 => 'Prooph\Link\Application\Model\ProcessingConfig\AddConnectorToConfigHandler',
+            'Prooph\Link\Application\Command\ChangeConnectorConfig'                => 'Prooph\Link\Application\Model\ProcessingConfig\ChangeConnectorConfigHandler',
+            'Prooph\Link\Application\Command\EnableWorkflowProcessorMessageQueue'  => 'Prooph\Link\Application\Model\ProcessingConfig\EnableWorkflowProcessorMessageQueueHandler',
+            'Prooph\Link\Application\Command\DisableWorkflowProcessorMessageQueue' => 'Prooph\Link\Application\Model\ProcessingConfig\DisableWorkflowProcessorMessageQueueHandler',
         ],
         'command_bus' => [
             //We force the rule -one handler per command- with a custom invoke strategy (Application\ProophPlugin\SingleHandleMethodInvokeStrategy)
@@ -147,7 +161,7 @@ return array(
             'prooph/link/system-config/riot-tag/system-configurator' => __DIR__ . '/../view/system-config/riot-tag/system-configurator.phtml',
             'prooph/link/system-config/riot-tag/system-node-name' => __DIR__ . '/../view/system-config/riot-tag/system-node-name.phtml',
             'prooph/link/system-config/riot-tag/system-ticker' => __DIR__ . '/../view/system-config/riot-tag/system-ticker.phtml',
-            'prooph/link/system-config/riot-tag/system-message-queue' => __DIR__ . '/../view/system-config/riot-tag/system-message-queue.phtml',
+            'prooph/link/system-config/riot-tag/system-workflow-processor-message-queue' => __DIR__ . '/../view/system-config/riot-tag/system-workflow-processor-message-queue.phtml',
         ],
         'strategies' => array(
             'ViewJsonStrategy',
@@ -172,7 +186,7 @@ return array(
                     'prooph/link/system-config/riot-tag/system-configurator',
                     'prooph/link/system-config/riot-tag/system-node-name',
                     'prooph/link/system-config/riot-tag/system-ticker',
-                    'prooph/link/system-config/riot-tag/system-message-queue',
+                    'prooph/link/system-config/riot-tag/system-workflow-processor-message-queue',
                 ],
             ],
             'paths' => [

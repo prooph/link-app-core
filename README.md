@@ -1,4 +1,4 @@
-ProophLinkAppCoreModule
+Prooph\Link\Application
 =======================
 Application core for [prooph LINK](https://github.com/prooph/link)
 

@@ -47,7 +47,7 @@ How this can be done is described in the documentation of the [process-manager](
 # Support
 
 - Ask any questions on [prooph-users](https://groups.google.com/forum/?hl=de#!forum/prooph) google group.
-- File issues at [https://github.com/prooph/link/issues](https://github.com/prooph/link/issues).
+- File issues at [https://github.com/prooph/link-app-core/issues](https://github.com/prooph/link-app-core/issues).
 
 # Contribution
 

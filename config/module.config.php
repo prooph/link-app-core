@@ -95,6 +95,7 @@ return array(
     'service_manager' => [
         'invokables' => [
             'prooph.link.app.psb.single_handle_method_invoke_strategy' => 'Prooph\Link\Application\ProophPlugin\SingleHandleMethodInvokeStrategy',
+            'prooph.link.app.psb.domain_event_invoke_strategy' => 'Prooph\Link\Application\ProophPlugin\OnDomainEventInvokeStrategy',
             //System config writer
             'prooph.link.system_config.config_writer' => 'Prooph\Link\Application\Service\ConfigWriter\ZendPhpArrayWriter',
             //Command handlers
@@ -152,6 +153,9 @@ return array(
         'command_bus' => [
             //We force the rule -one handler per command- with a custom invoke strategy (Application\ProophPlugin\SingleHandleMethodInvokeStrategy)
             'prooph.link.app.psb.single_handle_method_invoke_strategy',
+        ],
+        'event_bus' => [
+            'prooph.link.app.psb.domain_event_invoke_strategy',
         ]
     ],
     'view_manager' => [

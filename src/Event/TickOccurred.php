@@ -11,6 +11,7 @@
 namespace Prooph\Link\Application\Event;
 
 use Prooph\EventSourcing\DomainEvent;
+use Prooph\ServiceBus\Message\MessageNameProvider;
 use Rhumsaa\Uuid\Uuid;
 
 /**
@@ -23,7 +24,7 @@ use Rhumsaa\Uuid\Uuid;
  * @package Prooph\Link\Application\Event
  * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
  */
-final class TickOccurred implements DomainEvent
+final class TickOccurred implements DomainEvent, MessageNameProvider
 {
     /**
      * @var Uuid
@@ -71,5 +72,13 @@ final class TickOccurred implements DomainEvent
     public function payload()
     {
         return [];
+    }
+
+    /**
+     * @return string Name of the message
+     */
+    public function getMessageName()
+    {
+        return __CLASS__;
     }
 }

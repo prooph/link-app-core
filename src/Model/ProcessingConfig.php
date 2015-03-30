@@ -331,7 +331,7 @@ final class ProcessingConfig implements SystemChangedEventRecorder
 
         $this->config['processing']['channels'][self::WORKFLOW_PROCESSOR_MESSAGE_QUEUE_CHANNEL] = [
             'targets' => ['*'],
-            'origin'  => $this->projection()->getNodeName(),
+            'sender'  => $this->projection()->getNodeName(),
             'message_dispatcher' => \Prooph\Link\Application\Definition::APP_SERVICE_WORKFLOW_PROCESSOR_MESSAGE_QUEUE,
         ];
 

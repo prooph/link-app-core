@@ -13,6 +13,7 @@ namespace Prooph\Link\Application\Event;
 
 use Codeliner\ArrayReader\ArrayReader;
 use Prooph\EventSourcing\DomainEvent;
+use Prooph\ServiceBus\Message\MessageNameProvider;
 use Rhumsaa\Uuid\Uuid;
 
 /**
@@ -24,7 +25,7 @@ use Rhumsaa\Uuid\Uuid;
  * @package Application\Event
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-class SystemChanged implements DomainEvent
+class SystemChanged implements DomainEvent, MessageNameProvider
 {
     /**
      * @var Uuid
@@ -128,6 +129,14 @@ class SystemChanged implements DomainEvent
         }
 
         return $this->payloadReader;
+    }
+
+    /**
+     * @return string Name of the message
+     */
+    public function getMessageName()
+    {
+        return get_class($this);
     }
 }
  

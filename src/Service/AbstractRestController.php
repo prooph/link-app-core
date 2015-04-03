@@ -30,7 +30,7 @@ class AbstractRestController extends AbstractRestfulController
      */
     public function create($data)
     {
-        return new ApiProblemResponse(new ApiProblem(405, 'Method not allowed'));
+        return $this->apiProblem(405, 'Method not allowed');
     }
 
     /**
@@ -41,7 +41,7 @@ class AbstractRestController extends AbstractRestfulController
      */
     public function delete($id)
     {
-        return new ApiProblemResponse(new ApiProblem(405, 'Method not allowed'));
+        return $this->apiProblem(405, 'Method not allowed');
     }
 
     /**
@@ -54,7 +54,7 @@ class AbstractRestController extends AbstractRestfulController
      */
     public function deleteList()
     {
-        return new ApiProblemResponse(new ApiProblem(405, 'Method not allowed'));
+        return $this->apiProblem(405, 'Method not allowed');
     }
 
     /**
@@ -65,7 +65,7 @@ class AbstractRestController extends AbstractRestfulController
      */
     public function get($id)
     {
-        return new ApiProblemResponse(new ApiProblem(405, 'Method not allowed'));
+        return $this->apiProblem(405, 'Method not allowed');
     }
 
     /**
@@ -75,7 +75,7 @@ class AbstractRestController extends AbstractRestfulController
      */
     public function getList()
     {
-        return new ApiProblemResponse(new ApiProblem(405, 'Method not allowed'));
+        return $this->apiProblem(405, 'Method not allowed');
     }
 
     /**
@@ -89,7 +89,7 @@ class AbstractRestController extends AbstractRestfulController
      */
     public function head($id = null)
     {
-        return new ApiProblemResponse(new ApiProblem(405, 'Method not allowed'));
+        return $this->apiProblem(405, 'Method not allowed');
     }
 
     /**
@@ -105,7 +105,7 @@ class AbstractRestController extends AbstractRestfulController
      */
     public function options()
     {
-        return new ApiProblemResponse(new ApiProblem(405, 'Method not allowed'));
+        return $this->apiProblem(405, 'Method not allowed');
     }
 
     /**
@@ -116,10 +116,11 @@ class AbstractRestController extends AbstractRestfulController
      *
      * @param  $id
      * @param  $data
+     * @return mixed
      */
     public function patch($id, $data)
     {
-        return new ApiProblemResponse(new ApiProblem(405, 'Method not allowed'));
+        return $this->apiProblem(405, 'Method not allowed');
     }
 
     /**
@@ -133,7 +134,7 @@ class AbstractRestController extends AbstractRestfulController
      */
     public function replaceList($data)
     {
-        return new ApiProblemResponse(new ApiProblem(405, 'Method not allowed'));
+        return $this->apiProblem(405, 'Method not allowed');
     }
 
     /**
@@ -147,7 +148,7 @@ class AbstractRestController extends AbstractRestfulController
      */
     public function patchList($data)
     {
-        return new ApiProblemResponse(new ApiProblem(405, 'Method not allowed'));
+        return $this->apiProblem(405, 'Method not allowed');
     }
 
     /**
@@ -159,7 +160,7 @@ class AbstractRestController extends AbstractRestfulController
      */
     public function update($id, $data)
     {
-        return new ApiProblemResponse(new ApiProblem(405, 'Method not allowed'));
+        return $this->apiProblem(405, 'Method not allowed');
     }
 
     /**
@@ -169,7 +170,7 @@ class AbstractRestController extends AbstractRestfulController
      */
     public function notFoundAction()
     {
-        return new ApiProblemResponse(new ApiProblem(405, 'Method not allowed'));
+        return $this->apiProblem(405, 'Method not allowed');
     }
 
     /**
@@ -180,7 +181,7 @@ class AbstractRestController extends AbstractRestfulController
      * @param array $additional
      * @return ApiProblemResponse
      */
-    protected function getApiProblemResponse($status, $detail, $type = null, $title = null, array $additional = array())
+    protected function apiProblem($status, $detail, $type = null, $title = null, array $additional = array())
     {
         return new ApiProblemResponse(new ApiProblem($status, $detail, $type, $title, $additional));
     }

@@ -162,6 +162,16 @@ return array(
             'prooph.link.app.psb.domain_event_invoke_strategy',
         ]
     ],
+    'prooph.event_store' => [
+        'features' => [
+            'prooph.link.app.recorded_events_dispatcher',
+        ],
+        'feature_manager' => [
+            'factories' => [
+                'prooph.link.app.recorded_events_dispatcher' => \Prooph\Link\Application\ProophPlugin\Factory\RecordedEventsDispatcherFactory::class,
+            ]
+        ]
+    ],
     'view_manager' => [
         'template_map' => [
             'prooph/link/system-config/dashboard/widget' => __DIR__ . '/../view/system-config/dashboard/widget.phtml',

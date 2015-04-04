@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   - Start transaction when a `TransactionCommand` is dispatched
   - Rollback transaction on error
   - Commit transaction on finalize
+- RecordedEventsDispatcher listens on EventStore `commit.post` event and pushes recorded events on the PSB event bus
 - `AbstractRestController::location` provides an easy way to return a 201 response
 
 ### Changed

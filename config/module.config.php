@@ -118,6 +118,7 @@ return array(
             'prooph.link.app.location_translator' => 'Prooph\Link\Application\SharedKernel\Factory\LocationTranslatorFactory',
             'prooph.link.app.db'                  => 'Prooph\Link\Application\Service\Factory\ApplicationDbFactory',
             'prooph.link.app.riot_tag.collection.resolver' => 'Prooph\Link\Application\Service\Factory\RiotTagCollectionResolverFactory',
+            'prooph.link.app.psb.event_store_transaction_manager' => \Prooph\Link\Application\ProophPlugin\Factory\EventStoreTransactionManagerFactory::class,
             //Projections
             'prooph.link.system_config' => Prooph\Link\Application\Service\SystemConfigFactory::class,
         ],
@@ -153,6 +154,9 @@ return array(
         'command_bus' => [
             //We force the rule -one handler per command- with a custom invoke strategy (Application\ProophPlugin\SingleHandleMethodInvokeStrategy)
             'prooph.link.app.psb.single_handle_method_invoke_strategy',
+
+            //Attach a plugin to wrap a command with an event store transaction
+            'prooph.link.app.psb.event_store_transaction_manager'
         ],
         'event_bus' => [
             'prooph.link.app.psb.domain_event_invoke_strategy',

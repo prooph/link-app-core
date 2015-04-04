@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
+### Added
+- EventStoreTransaction Plugin for prooph/service-bus
+  - Start transaction when a `TransactionCommand` is dispatched
+  - Rollback transaction on error
+  - Commit transaction on finalize
+- `AbstractRestController::location` provides an easy way to return a 201 response
+
 ### Changed
 - Rename protected `AbstractRestController::getApiProblemResponse` to `apiProblem` and use it internally
 

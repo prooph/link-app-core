@@ -10,6 +10,7 @@
  */
 namespace Prooph\Link\Application\Service;
 
+use Zend\Http\PhpEnvironment\Response;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use ZF\ApiProblem\ApiProblem;
 use ZF\ApiProblem\ApiProblemResponse;
@@ -184,5 +185,27 @@ class AbstractRestController extends AbstractRestfulController
     protected function apiProblem($status, $detail, $type = null, $title = null, array $additional = array())
     {
         return new ApiProblemResponse(new ApiProblem($status, $detail, $type, $title, $additional));
+    }
+
+    /**
+     * Returns a 201 response with a Location header
+     *
+     * @param string $url
+     * @return Response
+     */
+    protected function location($url)
+    {
+        /** @var $response Response */
+        $response = $this->getResponse();
+
+        $response->getHeaders()
+            ->addHeaderLine(
+                'Location',
+                $url
+            );
+
+        $response->setStatusCode(201);
+
+        return $response;
     }
 } 

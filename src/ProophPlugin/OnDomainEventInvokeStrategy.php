@@ -10,7 +10,6 @@
  */
 namespace Prooph\Link\Application\ProophPlugin;
 
-
 use Prooph\EventSourcing\DomainEvent;
 use Prooph\ServiceBus\InvokeStrategy\OnEventStrategy;
 

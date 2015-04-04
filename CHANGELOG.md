@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   - Commit transaction on finalize
 - RecordedEventsDispatcher listens on EventStore `commit.post` event and pushes recorded events on the PSB event bus
 - `AbstractRestController::location` provides an easy way to return a 201 response
+- New interface `ApplicationDbAware` and corresponding `ApplicationDbProvider`
 
 ### Changed
 - Rename protected `AbstractRestController::getApiProblemResponse` to `apiProblem` and use it internally

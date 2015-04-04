@@ -39,7 +39,7 @@ final class RiotTagCollectionResolver extends CollectionResolver
 
         if (!is_array($this->collections[$name])) {
             throw new \RuntimeException(
-                "Collection with name $name is not an an array."
+                "Collection with name $name is not an array."
             );
         }
 

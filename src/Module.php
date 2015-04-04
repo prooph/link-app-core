@@ -11,6 +11,7 @@
 namespace Prooph\Link\Application;
 
 use Prooph\Link\Application\Service\ActionControllerInitializer;
+use Prooph\Link\Application\Service\ApplicationDbProvider;
 use Prooph\Link\Application\Service\ControllerTranslatorProvider;
 use Prooph\Link\Application\Service\SystemConfigChangesHandlerProvider;
 use Prooph\Link\Application\Service\SystemConfigProvider;
@@ -23,6 +24,7 @@ class Module
     {
         /** @var $sm ControllerManager */
         $sm = $e->getApplication()->getServiceManager();
+        $sm->addInitializer(new ApplicationDbProvider());
         $cm = $sm->get('ControllerLoader');
         $cm->addInitializer(new ActionControllerInitializer());
         $cm->addInitializer(new ControllerTranslatorProvider());

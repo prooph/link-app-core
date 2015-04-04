@@ -53,10 +53,8 @@ if (typeof(Worker) === "undefined") {
 
     tickerWorker.addEventListener("message", function(msg) {
         if (msg.data.xhr.readyState == 1) {
-            console.log("xhr changed");
             $("#js_ticker_status").addClass('text-info').removeClass('text-error');
         }else if (msg.data.xhr.readyState == 4) {
-            console.log("xhr finished");
             if (msg.data.xhr.status != 200) {
                 $.appErrorNotify("[Tikcer Error] " + msg.data.xhr.responseText);
                 $("#js_ticker_status").addClass('text-error').removeClass('text-info');

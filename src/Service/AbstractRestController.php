@@ -10,6 +10,7 @@
  */
 namespace Prooph\Link\Application\Service;
 
+use Zend\Http\PhpEnvironment\Request;
 use Zend\Http\PhpEnvironment\Response;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use ZF\ApiProblem\ApiProblem;
@@ -171,7 +172,15 @@ class AbstractRestController extends AbstractRestfulController
      */
     public function notFoundAction()
     {
-        return $this->apiProblem(405, 'Method not allowed');
+        return $this->apiProblem(404, 'Resource not found');
+    }
+
+    /**
+     * @return Request
+     */
+    public function getRequest()
+    {
+        return parent::getRequest();
     }
 
     /**
@@ -205,6 +214,19 @@ class AbstractRestController extends AbstractRestfulController
             );
 
         $response->setStatusCode(201);
+
+        return $response;
+    }
+
+    /**
+     * @return Response
+     */
+    protected function accepted()
+    {
+        /** @var $response Response */
+        $response = $this->getResponse();
+
+        $response->setStatusCode(202);
 
         return $response;
     }

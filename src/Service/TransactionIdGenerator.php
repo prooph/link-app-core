@@ -6,24 +6,35 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  * 
- * Date: 4/4/15 - 12:40 AM
+ * Date: 4/16/15 - 7:11 PM
  */
 
 namespace Prooph\Link\Application\Service;
 
 /**
- * Interface TransactionCommand
+ * Trait TransactionIdGenerator
  *
- * This is a marker interface telling the Prooph\Link\Application\ProophPlugin\EventStoreTransactionManager
- * that this command should be wrapped in a transaction.
+ * Trait to add TransactionId generation capability to a TransactionCommand
  *
  * @package Prooph\Link\Application\Service
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-interface TransactionCommand 
+trait TransactionIdGenerator
 {
+    /**
+     * @var TransactionId
+     */
+    private $transactionId;
+
     /**
      * @return TransactionId
      */
-    public function transactionId();
+    public function transactionId()
+    {
+        if (is_null($this->transactionId)) {
+            $this->transactionId = TransactionId::generate();
+        }
+
+        return $this->transactionId;
+    }
 } 

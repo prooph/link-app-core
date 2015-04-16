@@ -6,22 +6,25 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  * 
- * Date: 4/4/15 - 12:40 AM
+ * Date: 4/16/15 - 7:15 PM
  */
 
 namespace Prooph\Link\Application\Service;
 
 /**
- * Interface TransactionCommand
- *
- * This is a marker interface telling the Prooph\Link\Application\ProophPlugin\EventStoreTransactionManager
- * that this command should be wrapped in a transaction.
+ * Interface TransactionEvent
  *
  * @package Prooph\Link\Application\Service
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-interface TransactionCommand 
+interface TransactionEvent 
 {
+    /**
+     * @param TransactionId $transactionId
+     * @return void
+     */
+    public function setTransactionId(TransactionId $transactionId);
+
     /**
      * @return TransactionId
      */

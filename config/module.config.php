@@ -156,7 +156,7 @@ return array(
             'prooph.link.app.psb.single_handle_method_invoke_strategy',
 
             //Attach a plugin to wrap a command with an event store transaction
-            'prooph.link.app.psb.event_store_transaction_manager'
+            'prooph.link.app.psb.event_store_transaction_manager',
         ],
         'event_bus' => [
             'prooph.link.app.psb.domain_event_invoke_strategy',

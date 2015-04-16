@@ -11,13 +11,24 @@
 namespace Prooph\Link\Application\ProophPlugin;
 
 use Prooph\EventStore\EventStore;
+use Prooph\EventStore\PersistenceEvent\PreCommitEvent;
 use Prooph\Link\Application\Service\TransactionCommand;
+use Prooph\Link\Application\Service\TransactionEvent;
+use Prooph\Link\Application\Service\TransactionId;
 use Prooph\ServiceBus\Process\CommandDispatch;
+use Prooph\ServiceBus\Process\EventDispatch;
 use Zend\EventManager\AbstractListenerAggregate;
+use Zend\EventManager\Event;
 use Zend\EventManager\EventManagerInterface;
 
 /**
  * EventStoreTransactionManager Prooph Service Bus Plugin
+ *
+ * The transaction manager starts a new transaction when it detects a TransactionCommand on the command bus.
+ * If the command dispatch finishes without an error the transaction manager commits the transaction otherwise it do a rollback.
+ * Furthermore it attaches a listener to the event store commit.pre event with a low priority to check if
+ * TransactionEvents are going to be committed. If so the transaction manager passes the current TransactionId
+ * to each event so that they can be collated to the transaction.
  *
  * @package Prooph\Link\Application\ProophPlugin
  * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
@@ -35,15 +46,21 @@ final class EventStoreTransactionManager extends AbstractListenerAggregate
     private $inTransaction = false;
 
     /**
+     * @var TransactionId
+     */
+    private $currentTransactionId;
+
+    /**
      * @param EventStore $eventStore
      */
     public function __construct(EventStore $eventStore)
     {
         $this->eventStore = $eventStore;
+        $this->eventStore->getPersistenceEvents()->attach('appendTo.pre', [$this, 'onEventStoreAppendToStream'], -1000);
     }
 
     /**
-     * Attaches itself to the command dispatch of the appliaction command bus
+     * Attaches itself to the command and event dispatch of the application service bus
      *
      * @param EventManagerInterface $events
      *
@@ -56,26 +73,43 @@ final class EventStoreTransactionManager extends AbstractListenerAggregate
         $this->listeners[] = $events->attach(CommandDispatch::FINALIZE, [$this, 'onFinalize']);
     }
 
-    public function onInitialize(CommandDispatch $event)
+    /**
+     * @param CommandDispatch $commandDispatch
+     */
+    public function onInitialize(CommandDispatch $commandDispatch)
     {
-        if ($event->getCommand() instanceof TransactionCommand) {
+        $command = $commandDispatch->getCommand();
+        if ($command instanceof TransactionCommand) {
             $this->eventStore->beginTransaction();
             $this->inTransaction = true;
+            $this->currentTransactionId = $command->transactionId();
         }
     }
 
-    public function onError(CommandDispatch $event)
+    public function onError(CommandDispatch $commandDispatch)
     {
         if (! $this->inTransaction) return;
 
         $this->eventStore->rollback();
         $this->inTransaction = false;
+        $this->currentTransactionId = null;
     }
 
-    public function onFinalize(CommandDispatch $event)
+    public function onFinalize(CommandDispatch $commandDispatch)
     {
         if (! $this->inTransaction) return;
 
         $this->eventStore->commit();
+        $this->currentTransactionId = null;
+    }
+
+    /**
+     * @param Event $appendToStreamEvent
+     */
+    public function onEventStoreAppendToStream(Event $appendToStreamEvent)
+    {
+        foreach($appendToStreamEvent->getParam('streamEvents') as $recordedEvent) {
+            $recordedEvent->setMetadataEntry('transaction_id', $this->currentTransactionId->toString());
+        }
     }
 }

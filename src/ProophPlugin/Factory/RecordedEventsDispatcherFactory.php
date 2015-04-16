@@ -10,8 +10,8 @@
  */
 namespace Prooph\Link\Application\ProophPlugin\Factory;
 
-use Prooph\EventSourcing\EventStoreIntegration\AggregateChangedEventHydrator;
 use Prooph\Link\Application\ProophPlugin\RecordedEventsDispatcher;
+use Prooph\Link\Application\ProophPlugin\TransactionAwareAggregateChangedEventHydrator;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -35,7 +35,7 @@ final class RecordedEventsDispatcherFactory implements FactoryInterface
 
         return new RecordedEventsDispatcher(
             $services->get('prooph.psb.event_bus'),
-            new AggregateChangedEventHydrator()
+            new TransactionAwareAggregateChangedEventHydrator()
         );
     }
 }

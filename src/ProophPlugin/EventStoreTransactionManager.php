@@ -88,6 +88,7 @@ final class EventStoreTransactionManager extends AbstractListenerAggregate
 
     public function onError(CommandDispatch $commandDispatch)
     {
+        if (! $commandDispatch->getCommand() instanceof TransactionCommand) return;
         if (! $this->inTransaction) return;
 
         $this->eventStore->rollback();
@@ -97,6 +98,7 @@ final class EventStoreTransactionManager extends AbstractListenerAggregate
 
     public function onFinalize(CommandDispatch $commandDispatch)
     {
+        if (! $commandDispatch->getCommand() instanceof TransactionCommand) return;
         if (! $this->inTransaction) return;
 
         $this->eventStore->commit();

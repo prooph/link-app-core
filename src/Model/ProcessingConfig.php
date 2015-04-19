@@ -12,6 +12,7 @@
 namespace Prooph\Link\Application\Model;
 
 use Prooph\Link\Application\Event\JavascriptTickerWasConfigured;
+use Prooph\Link\Application\Event\ProcessConfigWasRemoved;
 use Prooph\Link\Application\Event\RecordsSystemChangedEvents;
 use Prooph\Link\Application\Event\SystemChangedEventRecorder;
 use Prooph\Link\Application\Event\WorkflowProcessorMessageQueueWasEnabled;
@@ -246,6 +247,26 @@ final class ProcessingConfig implements SystemChangedEventRecorder
         $this->writeConfig($configWriter);
 
         $this->recordThat(ProcessConfigWasChanged::to($processConfig, $oldProcessConfig, $startMessage));
+    }
+
+    /**
+     * @param string $startMessage
+     * @param ConfigWriter $configWriter
+     * @throws \InvalidArgumentException
+     */
+    public function removeProcessTriggeredBy($startMessage, ConfigWriter $configWriter)
+    {
+        $this->assertMessageName($startMessage, $this->projection()->getAllAvailableProcessingTypes());
+
+        if (! isset($this->config['processing']['processes'][$startMessage])) throw new \InvalidArgumentException(sprintf('Can not find a process that is triggered by message %s', $startMessage));
+
+        $oldProcessConfig = $this->config['processing']['processes'][$startMessage];
+
+        unset($this->config['processing']['processes'][$startMessage]);
+
+        $this->writeConfig($configWriter);
+
+        $this->recordThat(ProcessConfigWasRemoved::record($oldProcessConfig, $startMessage));
     }
 
     /**

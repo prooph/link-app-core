@@ -42,7 +42,7 @@ final class ApplicationDbFactory implements FactoryInterface
 
         if (isset($config['use_event_store_adapter_connection']) && $config['use_event_store_adapter_connection']) {
             /** @var $es EventStore */
-            $es = $serviceLocator->get('prooph.event_store');
+            $es = $serviceLocator->get('proophessor.event_store');
 
             return DoctrineEventStoreAdapterDecorator::getConnectionOfAdapter($es->getAdapter());
         } else {

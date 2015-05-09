@@ -94,8 +94,6 @@ return array(
     ],
     'service_manager' => [
         'invokables' => [
-            'prooph.link.app.psb.single_handle_method_invoke_strategy' => \Prooph\Link\Application\ProophPlugin\SingleHandleMethodInvokeStrategy::class,
-            'prooph.link.app.psb.domain_event_invoke_strategy' => \Prooph\Link\Application\ProophPlugin\OnDomainEventInvokeStrategy::class,
             //System config writer
             'prooph.link.system_config.config_writer' => \Prooph\Link\Application\Service\ConfigWriter\ZendPhpArrayWriter::class,
             //Command handlers
@@ -119,7 +117,6 @@ return array(
             'prooph.link.app.location_translator' => \Prooph\Link\Application\SharedKernel\Factory\LocationTranslatorFactory::class,
             'prooph.link.app.db'                  => \Prooph\Link\Application\Service\Factory\ApplicationDbFactory::class,
             'prooph.link.app.riot_tag.collection.resolver' => \Prooph\Link\Application\Service\Factory\RiotTagCollectionResolverFactory::class,
-            'prooph.link.app.psb.event_store_transaction_manager' => \Prooph\Link\Application\ProophPlugin\Factory\EventStoreTransactionManagerFactory::class,
             //Projections
             'prooph.link.system_config' => \Prooph\Link\Application\Service\SystemConfigFactory::class,
         ],
@@ -138,7 +135,7 @@ return array(
             'Prooph\Link\Application\Controller\DashboardWidget'   => \Prooph\Link\Application\Controller\DashboardWidgetController::class,
         ),
     ),
-    'prooph.psb' => [
+    'proophessor' => [
         'command_router_map' => [
             \Prooph\Link\Application\Command\CreateDefaultProcessingConfigFile::class    => \Prooph\Link\Application\Model\ProcessingConfig\CreateDefaultConfigFileHandler::class,
             \Prooph\Link\Application\Command\InitializeEventStore::class                 => \Prooph\Link\Application\Model\ProcessingConfig\InitializeEventStoreHandler::class,
@@ -153,26 +150,6 @@ return array(
             \Prooph\Link\Application\Command\EnableWorkflowProcessorMessageQueue::class  => \Prooph\Link\Application\Model\ProcessingConfig\EnableWorkflowProcessorMessageQueueHandler::class,
             \Prooph\Link\Application\Command\DisableWorkflowProcessorMessageQueue::class => \Prooph\Link\Application\Model\ProcessingConfig\DisableWorkflowProcessorMessageQueueHandler::class,
         ],
-        'command_bus' => [
-            //We force the rule -one handler per command- with a custom invoke strategy (Application\ProophPlugin\SingleHandleMethodInvokeStrategy)
-            'prooph.link.app.psb.single_handle_method_invoke_strategy',
-
-            //Attach a plugin to wrap a command with an event store transaction
-            'prooph.link.app.psb.event_store_transaction_manager',
-        ],
-        'event_bus' => [
-            'prooph.link.app.psb.domain_event_invoke_strategy',
-        ]
-    ],
-    'prooph.event_store' => [
-        'features' => [
-            'prooph.link.app.recorded_events_dispatcher',
-        ],
-        'feature_manager' => [
-            'factories' => [
-                'prooph.link.app.recorded_events_dispatcher' => \Prooph\Link\Application\ProophPlugin\Factory\RecordedEventsDispatcherFactory::class,
-            ]
-        ]
     ],
     'view_manager' => [
         'template_map' => [

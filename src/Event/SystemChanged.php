@@ -12,8 +12,7 @@
 namespace Prooph\Link\Application\Event;
 
 use Codeliner\ArrayReader\ArrayReader;
-use Prooph\EventSourcing\DomainEvent;
-use Prooph\ServiceBus\Message\MessageNameProvider;
+use Prooph\Common\Messaging\DomainEvent;
 use Rhumsaa\Uuid\Uuid;
 
 /**
@@ -25,7 +24,7 @@ use Rhumsaa\Uuid\Uuid;
  * @package Application\Event
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-class SystemChanged implements DomainEvent, MessageNameProvider
+class SystemChanged extends DomainEvent
 {
     /**
      * @var Uuid
@@ -60,39 +59,7 @@ class SystemChanged implements DomainEvent, MessageNameProvider
      */
     public static function occur(array $payload)
     {
-        return new static($payload);
-    }
-
-    /**
-     * @param array $payload
-     * @param Uuid $uuid
-     * @param \DateTime $occurredOn
-     * @param $version
-     * @return static
-     */
-    public static function reconstitute(array $payload, Uuid $uuid, \DateTime $occurredOn, $version)
-    {
-        return new static($payload, $uuid, $occurredOn, $version);
-    }
-
-    /**
-     * @param array $payload
-     * @param Uuid $uuid
-     * @param \DateTime $occurredOn
-     */
-    protected function __construct(array $payload, Uuid $uuid = null, \DateTime $occurredOn = null)
-    {
-        if (is_null($uuid)) {
-            $uuid = Uuid::uuid4();
-        }
-
-        if (is_null($occurredOn)) {
-            $occurredOn = new \DateTime();
-        }
-
-        $this->payload     = $payload;
-        $this->uuid        = $uuid;
-        $this->occurredOn  = $occurredOn;
+        return new static(get_called_class(), $payload);
     }
 
     /**
@@ -101,14 +68,6 @@ class SystemChanged implements DomainEvent, MessageNameProvider
     public function uuid()
     {
         return $this->uuid;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function occurredOn()
-    {
-        return $this->occurredOn;
     }
 
     /**
@@ -129,14 +88,6 @@ class SystemChanged implements DomainEvent, MessageNameProvider
         }
 
         return $this->payloadReader;
-    }
-
-    /**
-     * @return string Name of the message
-     */
-    public function getMessageName()
-    {
-        return get_class($this);
     }
 }
  

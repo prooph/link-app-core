@@ -10,8 +10,9 @@
  */
 namespace Prooph\Link\Application\Command;
 
+use Prooph\Common\Messaging\Command;
 use Prooph\Link\Application\SharedKernel\ConfigLocation;
-use Prooph\ServiceBus\Command;
+use Prooph\Proophessor\EventStore\AutoCommitCommand;
 use Rhumsaa\Uuid\Uuid;
 
 /**
@@ -22,40 +23,22 @@ use Rhumsaa\Uuid\Uuid;
  * @package Application\Command
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-abstract class SystemCommand extends Command
+abstract class SystemCommand extends Command implements AutoCommitCommand
 {
     /**
-     * @throws \BadMethodCallException
-     * @return Command
+     * @param string $messageName
+     * @param null $payload
+     * @param int $version
+     * @param Uuid $uuid
+     * @param \DateTimeImmutable $createdAt
+     * @param array $metadata
+     * @throws \RuntimeException
      */
-    public static function getNew()
+    protected function __construct($messageName, $payload = null, $version = 1, Uuid $uuid = null, \DateTimeImmutable $createdAt = null, array $metadata = [])
     {
-        throw new \BadMethodCallException('Calling Command::getNew is not allowed!');
-    }
-
-    /**
-     * @param mixed $aPayload
-     * @throws \BadMethodCallException
-     * @return Command
-     */
-    public static function fromPayload($aPayload)
-    {
-        throw new \BadMethodCallException('Calling Command::fromPayload is not allowed!');
-    }
-
-    /**
-     * @param string $aMessageName
-     * @param null $aPayload
-     * @param int $aVersion
-     * @param Uuid $aUuid
-     * @param \DateTime $aCreatedOn
-     * @throws \Prooph\ServiceBus\Exception\RuntimeException
-     */
-    public function __construct($aMessageName, $aPayload = null, $aVersion = 1, Uuid $aUuid = null, \DateTime $aCreatedOn = null)
-    {
-        $this->assertCommonPayload($aPayload);
-        $this->assertPayload($aPayload);
-        parent::__construct($aMessageName, $aPayload, $aVersion, $aUuid, $aCreatedOn);
+        $this->assertCommonPayload($payload);
+        $this->assertPayload($payload);
+        parent::__construct($messageName, $payload, $version, $uuid, $createdAt, $metadata);
     }
 
     abstract protected function assertPayload($aPayload = null);

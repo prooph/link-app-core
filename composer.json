@@ -20,8 +20,8 @@
     "require": {
         "php": ">=5.5",
         "zendframework/zendframework": "~2.3",
-        "prooph/processing" : "dev-master",
-        "prooph/proophessor" : "dev-master",
+        "prooph/processing" : "-0.4",
+        "prooph/proophessor" : "-0.3",
         "zfcampus/zf-api-problem": "~1.0",
         "zfcampus/zf-content-negotiation": "~1.0",
         "prooph/event-store-doctrine-adapter": "~1.0",

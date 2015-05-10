@@ -31,6 +31,6 @@ final class TickerControllerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new TickerController($serviceLocator->getServiceLocator()->get('prooph.psb.event_bus'));
+        return new TickerController($serviceLocator->getServiceLocator()->get('proophessor.event_bus'));
     }
 }

@@ -12,6 +12,7 @@
 namespace Prooph\Link\Application\Model;
 
 use Prooph\Link\Application\Event\JavascriptTickerWasConfigured;
+use Prooph\Link\Application\Event\ProcessConfigWasRemoved;
 use Prooph\Link\Application\Event\RecordsSystemChangedEvents;
 use Prooph\Link\Application\Event\SystemChangedEventRecorder;
 use Prooph\Link\Application\Event\WorkflowProcessorMessageQueueWasEnabled;
@@ -246,6 +247,26 @@ final class ProcessingConfig implements SystemChangedEventRecorder
         $this->writeConfig($configWriter);
 
         $this->recordThat(ProcessConfigWasChanged::to($processConfig, $oldProcessConfig, $startMessage));
+    }
+
+    /**
+     * @param string $startMessage
+     * @param ConfigWriter $configWriter
+     * @throws \InvalidArgumentException
+     */
+    public function removeProcessTriggeredBy($startMessage, ConfigWriter $configWriter)
+    {
+        $this->assertMessageName($startMessage, $this->projection()->getAllAvailableProcessingTypes());
+
+        if (! isset($this->config['processing']['processes'][$startMessage])) throw new \InvalidArgumentException(sprintf('Can not find a process that is triggered by message %s', $startMessage));
+
+        $oldProcessConfig = $this->config['processing']['processes'][$startMessage];
+
+        unset($this->config['processing']['processes'][$startMessage]);
+
+        $this->writeConfig($configWriter);
+
+        $this->recordThat(ProcessConfigWasRemoved::record($oldProcessConfig, $startMessage));
     }
 
     /**
@@ -505,6 +526,9 @@ final class ProcessingConfig implements SystemChangedEventRecorder
         if (!is_string($connectorConfig['name']) || empty($connectorConfig['name'])) throw new \InvalidArgumentException('Name must be a non empty string in connector config '. $connectorId);
         if (! array_key_exists('allowed_messages', $connectorConfig))       throw new \InvalidArgumentException('Missing allowed messages in connector config '. $connectorId);
         if (!is_array($connectorConfig['allowed_messages'])) throw new \InvalidArgumentException('Allowed messages must be an array in connector config '. $connectorId);
+        if (! array_key_exists('icon', $connectorConfig))       throw new \InvalidArgumentException('Missing icon in connector config '. $connectorId);
+        if (! array_key_exists('icon_type', $connectorConfig))       throw new \InvalidArgumentException('Missing icon_type in connector config '. $connectorId);
+        if (! array_key_exists('node_name', $connectorConfig))       throw new \InvalidArgumentException('Missing node_name in connector config '. $connectorId);
 
         array_walk($connectorConfig['allowed_messages'], function($allowedMessage) use ($connectorId) {
             if (! in_array($allowedMessage, $this->getAvailableMessageTypes())) throw new \InvalidArgumentException(sprintf('Allowed message %s is not a valid workflow message suffix in connector config %s', $allowedMessage, $connectorId));

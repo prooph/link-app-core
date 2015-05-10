@@ -57,15 +57,17 @@ final class EventStoreConfig implements SystemChangedEventRecorder
     public static function initializeWithSqliteDb(SqliteDbFile $sqliteDbFile, ConfigLocation $configLocation, ConfigWriter $configWriter)
     {
         $config = [
-            'prooph.event_store' => [
-                'adapter' => [
-                    'type' => 'Prooph\EventStore\Adapter\Doctrine\DoctrineEventStoreAdapter',
-                    'options' => [
-                        'connection' => [
-                            'driver' => 'pdo_sqlite',
-                            'path'   => $sqliteDbFile->toString()
-                        ],
-                        'serializer_adapter' => 'json',
+            'proophessor' => [
+                'event_store' => [
+                    'adapter' => [
+                        'type' => 'Prooph\EventStore\Adapter\Doctrine\DoctrineEventStoreAdapter',
+                        'options' => [
+                            'connection' => [
+                                'driver' => 'pdo_sqlite',
+                                'path'   => $sqliteDbFile->toString()
+                            ],
+                            'serializer_adapter' => 'json',
+                        ]
                     ]
                 ]
             ]
@@ -134,11 +136,13 @@ final class EventStoreConfig implements SystemChangedEventRecorder
      */
     private function setConfig(array $config)
     {
-        if (! array_key_exists('prooph.event_store', $config)) throw new \InvalidArgumentException('Missing the root key prooph.event_store in configuration');
-        if (! is_array($config['prooph.event_store'])) throw new \InvalidArgumentException('prooph.event_store config must be an array');
-        if (! array_key_exists('adapter', $config['prooph.event_store'])) throw new \InvalidArgumentException('Missing key adapter in prooph.event_store configuration');
-        if (! is_array($config['prooph.event_store']['adapter'])) throw new \InvalidArgumentException('prooph.event_store adapter config must be an array');
-        if (! array_key_exists('type', $config['prooph.event_store']['adapter'])) throw new \InvalidArgumentException('Missing key type in prooph.event_store adapter configuration');
+        if (! array_key_exists('proophessor', $config)) throw new \InvalidArgumentException('Missing the root key proophessor in configuration');
+        if (! is_array($config['proophessor'])) throw new \InvalidArgumentException('proophessor config must be an array');
+        if (! array_key_exists('event_store', $config['proophessor'])) throw new \InvalidArgumentException('Missing the event_store key in proophessor configuration');
+        if (! is_array($config['proophessor']['event_store'])) throw new \InvalidArgumentException('proophessor.event_store config must be an array');
+        if (! array_key_exists('adapter', $config['proophessor']['event_store'])) throw new \InvalidArgumentException('Missing key adapter in proophessor.event_store configuration');
+        if (! is_array($config['proophessor']['event_store']['adapter'])) throw new \InvalidArgumentException('proophessor.event_store adapter config must be an array');
+        if (! array_key_exists('type', $config['proophessor']['event_store']['adapter'])) throw new \InvalidArgumentException('Missing key type in proophessor.event_store adapter configuration');
 
         $this->config = $config;
     }

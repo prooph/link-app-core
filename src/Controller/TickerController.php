@@ -43,7 +43,7 @@ final class TickerController extends AbstractActionController
      */
     public function tickAction()
     {
-        $this->eventBus->dispatch(new TickOccurred());
+        $this->eventBus->dispatch(TickOccurred::record());
         return new JsonModel(['success' => true]);
     }
 } 

@@ -32,7 +32,7 @@ final class SystemConfigChangesHandlerProvider implements InitializerInterface
     public function initialize($instance, ServiceLocatorInterface $serviceLocator)
     {
         if ($instance instanceof HandlesSystemConfigChanges) {
-            $instance->setEventBus($serviceLocator->get('prooph.psb.event_bus'));
+            $instance->setEventBus($serviceLocator->get('proophessor.event_bus'));
             $instance->setConfigWriter($serviceLocator->get('prooph.link.system_config.config_writer'));
         }
     }

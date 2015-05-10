@@ -10,9 +10,7 @@
  */
 namespace Prooph\Link\Application\Event;
 
-use Prooph\EventSourcing\DomainEvent;
-use Prooph\ServiceBus\Message\MessageNameProvider;
-use Rhumsaa\Uuid\Uuid;
+use Prooph\Common\Messaging\DomainEvent;
 
 /**
  * Class TickOccurred
@@ -22,63 +20,15 @@ use Rhumsaa\Uuid\Uuid;
  * and so on should perform their next task.
  *
  * @package Prooph\Link\Application\Event
- * @author Alexander Miertsch <alexander.miertsch.extern@sixt.com>
+ * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-final class TickOccurred implements DomainEvent, MessageNameProvider
+final class TickOccurred extends DomainEvent
 {
     /**
-     * @var Uuid
+     * @return TickOccurred
      */
-    private $uuid;
-
-    /**
-     * @param Uuid $uuid
-     * @param \DateTime $occurredOn
-     */
-    public function __construct(Uuid $uuid = null, \DateTime $occurredOn = null)
+    public static function record()
     {
-        if (is_null($uuid)) {
-            $uuid = Uuid::uuid4();
-        }
-
-        if (is_null($occurredOn)) {
-            $occurredOn = new \DateTime();
-        }
-
-        $this->uuid = $uuid;
-        $this->occurredOn = $occurredOn;
-    }
-
-
-    /**
-     * @return Uuid
-     */
-    public function uuid()
-    {
-        return $this->uuid;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function occurredOn()
-    {
-        return $this->occurredOn;
-    }
-
-    /**
-     * @return array
-     */
-    public function payload()
-    {
-        return [];
-    }
-
-    /**
-     * @return string Name of the message
-     */
-    public function getMessageName()
-    {
-        return __CLASS__;
+        return new self(__CLASS__);
     }
 }

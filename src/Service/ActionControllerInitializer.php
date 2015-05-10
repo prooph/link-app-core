@@ -32,7 +32,7 @@ final class ActionControllerInitializer implements InitializerInterface
     {
         if ($instance instanceof ActionController) {
             //We are dealing with a ControllerManager so we need to get the main service manger first
-            $instance->setCommandBus($serviceLocator->getServiceLocator()->get('prooph.psb.command_bus'));
+            $instance->setCommandBus($serviceLocator->getServiceLocator()->get('proophessor.command_bus'));
         }
     }
 }

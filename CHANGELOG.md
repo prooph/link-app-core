@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## [0.3.2] - 2015-05-10
+### Fixed
+- wrong version definition in composer.json
+
 ## [0.3.1] - 2015-05-10
 ### Fixed
 - missing dependency codeliner/array-reader
@@ -36,7 +40,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - First development version of the module
 - Runs already in production!
 
-[unreleased]: https://github.com/prooph/link-app-core/compare/v0.3.0...HEAD
+[unreleased]: https://github.com/prooph/link-app-core/compare/v0.3.2...HEAD
+[0.3.1]: https://github.com/prooph/link-app-core/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/prooph/link-app-core/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/prooph/link-app-core/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/prooph/link-app-core/compare/v0.1.1...v0.2.0

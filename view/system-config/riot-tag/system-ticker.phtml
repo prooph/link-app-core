@@ -17,7 +17,7 @@
         var self = this;
 
         this.onToggleTicker = function (e) {
-            this.toggleTicker(true);
+            self.toggleTicker(true);
         }
 
         this.onIntervalClick = function (e) {
@@ -95,8 +95,8 @@
             $('#system_js_ticker_interval').html(interval + ' <?php echo $this->translate('Seconds')?>');
 
             if (saveChanges) {
-                this.app.js_ticker.interval = interval;
-                this.saveTickerConfiguration();
+                self.app.js_ticker.interval = interval;
+                self.saveTickerConfiguration();
             }
         }
 

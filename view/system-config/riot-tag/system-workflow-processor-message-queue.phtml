@@ -18,7 +18,7 @@
         var self = this;
 
         this.onToggleQueue = function (e) {
-            this.toggleQueue(true);
+            self.toggleQueue(true);
         }
 
         this.toggleQueue = function (saveChanges) {
@@ -40,8 +40,8 @@
             }
 
             if (saveChanges) {
-                this.app.workflow_processor_message_queue.enabled = enabled;
-                this.saveQueueConfiguration();
+                self.app.workflow_processor_message_queue.enabled = enabled;
+                self.saveQueueConfiguration();
             }
         }
 
